@@ -503,14 +503,14 @@
   .contact .block-eyebrow { color: var(--brand-bright); }
   .contact h2 { color: #fff; }
   .contact .block-head p { color: rgba(255,255,255,0.65); }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; position: relative; z-index: 1; }
-  .contact-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .contact-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 22px 24px; transition: all 0.3s var(--ease); }
-  .contact-card:hover { background: rgba(214,32,31,0.08); border-color: rgba(214,32,31,0.4); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.3); }
-  .contact-card .clbl { font-size: 11px; color: var(--brand-bright); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; margin-bottom: 5px; }
-  .contact-card .cval { font-size: 14px; color: #fff; line-height: 1.45; font-weight: 500; }
-  .contact-card .cval a { color: #fff; transition: color 0.15s; }
-  .contact-card .cval a:hover { color: var(--brand-bright); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; position: relative; z-index: 1; align-items: start; }
+  .contact-meta { display: flex; flex-direction: column; gap: 22px; padding: 6px 0; }
+  .cm-block { padding-left: 14px; border-left: 2px solid rgba(214,32,31,0.45); }
+  .cm-lbl { font-size: 11px; color: var(--brand-bright); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; margin-bottom: 6px; }
+  .cm-val { font-size: 15px; color: #fff; line-height: 1.55; font-weight: 500; }
+  .cm-val a { color: #fff; transition: color 0.15s; }
+  .cm-val a:hover { color: var(--brand-bright); }
+  .cm-foot { margin-top: 8px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: rgba(255,255,255,0.55); }
   .contact-form { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 32px; }
   .contact-form h3 { color: #fff; font-size: 22px; font-weight: 700; margin-bottom: 22px; }
   .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
@@ -593,8 +593,8 @@
     .brand-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .brand-tile { height: 130px; padding: 24px 18px; }
     .brand-tile img { max-height: 70px; }
-    .contact-cards { grid-template-columns: 1fr; }
     .contact-form { padding: 24px; }
+    .cm-foot { display: none; }
     .cf-row, .ph-modal-form .row { grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
     .cap-layout { gap: 36px; }
     .cap-item { grid-template-columns: 56px 1fr; gap: 16px; padding: 22px 0; }
@@ -975,12 +975,21 @@
       <p>Sales, parts, technical support, or a full equipment refresh — reach out and the right specialist from our team will be in touch.</p>
     </div>
     <div class="contact-grid">
-      <div class="contact-cards reveal-stagger">
-        <div class="contact-card"><div class="clbl">Visit Us</div><div class="cval">2406 Industrial St.<br/>Burlington, ON L7P 1A5</div></div>
-        <div class="contact-card"><div class="clbl">Call Us</div><div class="cval"><a href="tel:9059013108">+1 (905) 901-3108</a></div></div>
-        <div class="contact-card"><div class="clbl">Email Us</div><div class="cval"><a href="mailto:info@r2gaming.com">info@r2gaming.com</a><br/><span style="font-size:12px;color:rgba(255,255,255,0.65)">Parts: <a href="mailto:sales@r2gaming.com">sales@r2gaming.com</a></span></div></div>
-        <div class="contact-card"><div class="clbl">Business Hours</div><div class="cval">Mon — Fri · 8:00 AM — 5:00 PM<br/>Sat &amp; Sun · Closed</div></div>
-      </div>
+      <aside class="contact-meta reveal">
+        <div class="cm-block">
+          <div class="cm-lbl">Hours</div>
+          <div class="cm-val">Monday – Friday<br/>8:00 AM – 5:00 PM ET</div>
+        </div>
+        <div class="cm-block">
+          <div class="cm-lbl">Prefer to call?</div>
+          <div class="cm-val"><a href="tel:9059013108">+1 (905) 901-3108</a></div>
+        </div>
+        <div class="cm-block">
+          <div class="cm-lbl">Response time</div>
+          <div class="cm-val">A specialist will follow up within one business day.</div>
+        </div>
+        <div class="cm-foot">Full address &amp; departmental email contacts below.</div>
+      </aside>
       <div class="contact-form reveal">
         <h3>Send us a message</h3>
         <div class="cf-row">
@@ -1532,4 +1541,4 @@ else boot();
 </script>
 </body>
 </html>
-                                                                                   
+                                                                                                                                                                                                                                                                                                                                                                        
