@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#d6201f" />
+<title>R2 Gaming — Canada's Full-Service Gaming Company Since 2005</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf7; --surface: #ffffff; --surface-2: #f9fafb;
+    --border: #e5e7eb; --border-strong: #d1d5db;
+    --ink: #0e1320; --ink-2: #1f2937; --ink-deep: #060810;
+    --text: #1f2937; --text-dim: #4b5563; --text-faint: #9ca3af;
+    --brand: #d6201f; --brand-bright: #e92d2e; --brand-dim: #a8161a;
+    --brand-deep: #6f0d10; --brand-soft: #fde8e7; --brand-wash: #fef4f3;
+    --green: #10b981;
+    --maxw: 1280px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --shadow-sm: 0 1px 2px rgba(15,19,32,0.04);
+    --shadow: 0 2px 8px rgba(15,19,32,0.06), 0 1px 2px rgba(15,19,32,0.04);
+    --shadow-lg: 0 18px 48px rgba(15,19,32,0.08), 0 4px 12px rgba(15,19,32,0.06);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15.5px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+  ::selection { background: var(--brand); color: #fff; }
+  .container { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+
+  .js-error-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; padding: 14px 24px; background: #f59e0b; color: #1a1a1a; font-weight: 700; font-size: 13.5px; text-align: center; display: none; }
+  .js-error-banner.show { display: block; }
+
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 currentColor; opacity: 1; } 70% { box-shadow: 0 0 0 8px transparent; opacity: 0.85; } 100% { box-shadow: 0 0 0 0 transparent; opacity: 1; } }
+  @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(20px, -30px) scale(1.05); } }
+  @keyframes bobChevron { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+  @keyframes shimmerSweep { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+  @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(214,32,31,0); } 50% { box-shadow: 0 0 24px 6px rgba(214,32,31,0.18); } }
+  @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes drift { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  @keyframes wordIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes badgeBounce { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.18); } 50% { transform: scale(0.95); } 75% { transform: scale(1.05); } }
+
+  .scroll-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--brand), var(--brand-bright)); z-index: 999; transition: width 0.05s linear; }
+
+  .scroll-cue { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.7); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 8px; animation: bobChevron 2.2s ease-in-out infinite; z-index: 2; pointer-events: none; }
+  .scroll-cue svg { width: 14px; height: 14px; }
+
+  .section-divider { background: var(--surface); border-top: 1px solid var(--border); }
+  .section-divider .container { display: flex; align-items: center; gap: 28px; height: 84px; }
+  .section-divider .num { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700; color: var(--brand); line-height: 1; letter-spacing: -0.04em; flex-shrink: 0; }
+  .section-divider .meta { display: flex; flex-direction: column; gap: 3px; border-left: 1px solid var(--border); padding-left: 24px; flex: 1; }
+  .section-divider .meta .lbl { font-size: 11px; color: var(--text-faint); letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; }
+  .section-divider .meta .title { font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-divider .accent-line { width: 80px; height: 2px; background: linear-gradient(90deg, var(--brand) 0%, var(--brand-bright) 50%, transparent 100%); flex-shrink: 0; background-size: 200% 100%; animation: shimmerSweep 3.5s linear infinite; }
+  .section-divider.on-dark { background: var(--ink-deep); border-top: 1px solid rgba(255,255,255,0.06); }
+  .section-divider.on-dark .meta { border-left-color: rgba(255,255,255,0.1); }
+  .section-divider.on-dark .lbl { color: rgba(255,255,255,0.4); }
+  .section-divider.on-dark .title { color: #fff; }
+  .section-divider.on-dark .num { color: var(--brand-bright); }
+
+  .topbar { background: var(--ink); color: #cbd0d8; font-size: 12.5px; letter-spacing: 0.02em; }
+  .topbar .container { display: flex; justify-content: space-between; align-items: center; height: 36px; }
+  .topbar-left { display: flex; gap: 22px; align-items: center; }
+  .topbar-left .badge { display: inline-flex; align-items: center; gap: 7px; }
+  .topbar-left .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); animation: pulse 2.2s infinite; }
+  .topbar-right { display: flex; gap: 18px; align-items: center; }
+  .topbar-right a { color: #cbd0d8; transition: color 0.15s; }
+  .topbar-right a:hover { color: #fff; }
+  .topbar-right .sep { color: #4b5563; }
+  .topbar-right strong { color: #fff; }
+
+  .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border-bottom: 1px solid var(--border); transition: box-shadow 0.2s; }
+  .nav.scrolled { box-shadow: var(--shadow); }
+  .nav .container { display: flex; align-items: center; height: 80px; gap: 28px; }
+  .logo { display: flex; align-items: center; gap: 14px; flex-shrink: 0; transition: transform 0.3s var(--ease); }
+  .logo:hover { transform: scale(1.03); }
+  .logo img { height: 42px; width: auto; display: block; }
+  .logo-sep { height: 28px; width: 1px; background: var(--border); margin: 0 2px; }
+  .logo-tag { display: flex; flex-direction: column; line-height: 1.15; font-size: 10.5px; letter-spacing: 0.18em; color: var(--text-faint); font-weight: 600; text-transform: uppercase; }
+  .logo-tag strong { color: var(--ink); font-size: 11.5px; letter-spacing: 0.14em; }
+  .nav-links { display: flex; gap: 2px; align-items: center; margin-left: auto; }
+  .nav-links > a, .nav-links > .has-menu > button { padding: 10px 14px; font-size: 14px; font-weight: 500; color: var(--text-dim); display: inline-flex; align-items: center; gap: 6px; border-radius: 6px; transition: all 0.2s var(--ease); line-height: 1; height: 38px; position: relative; }
+  .nav-links > a::after, .nav-links > .has-menu > button::after { content: ''; position: absolute; left: 14px; right: 14px; bottom: 4px; height: 2px; background: var(--brand); border-radius: 2px; transform: scaleX(0); transform-origin: left; transition: transform 0.3s var(--ease); }
+  .nav-links > a:hover::after, .nav-links > .has-menu > button:hover::after, .nav-links > a.active::after, .nav-links > .has-menu.active > button::after { transform: scaleX(1); }
+  .nav-links > a:hover, .nav-links > .has-menu > button:hover { color: var(--brand); }
+  .nav-links .chev { width: 10px; height: 10px; opacity: 0.5; transition: transform 0.2s; }
+  .has-menu:hover .chev { transform: rotate(180deg); }
+  .has-menu { position: relative; }
+  .menu { position: absolute; top: calc(100% + 4px); left: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; min-width: 280px; padding: 8px; box-shadow: var(--shadow-lg); opacity: 0; pointer-events: none; transform: translateY(-6px); transition: all 0.2s var(--ease); }
+  .has-menu:hover .menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  .menu a { display: block; padding: 10px 12px; border-radius: 8px; font-size: 13.5px; color: var(--text-dim); transition: all 0.15s; position: relative; }
+  .menu a::after { display: none; }
+  .menu a:hover { background: var(--brand-wash); color: var(--brand); transform: translateX(4px); }
+  .menu a strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 2px; }
+  .menu a span { font-size: 12px; color: var(--text-faint); }
+  .menu a:hover strong { color: var(--brand); }
+  .nav-cta { display: flex; gap: 10px; align-items: center; margin-left: 14px; flex-shrink: 0; }
+
+  /* ===== HAMBURGER + MOBILE DRAWER ===== */
+  .hamburger {
+    display: none; /* hidden on desktop */
+    margin-left: auto;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s var(--ease);
+    position: relative;
+    z-index: 320;
+  }
+  .hamburger:hover, .hamburger.open { background: var(--brand-wash); border-color: var(--brand); }
+  .hamburger span { display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 2px; position: absolute; left: 13px; transition: all 0.3s var(--ease); }
+  .hamburger span:nth-child(1) { top: 15px; }
+  .hamburger span:nth-child(2) { top: 21px; }
+  .hamburger span:nth-child(3) { top: 27px; }
+  .hamburger.open span { background: var(--brand); }
+  .hamburger.open span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  .mobile-overlay {
+    position: fixed; inset: 0; z-index: 290;
+    background: rgba(0,0,0,0.55);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .mobile-overlay.open { opacity: 1; pointer-events: auto; }
+
+  .mobile-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    width: 320px; max-width: 88vw;
+    background: var(--surface);
+    z-index: 310;
+    transform: translateX(100%);
+    transition: transform 0.4s var(--ease);
+    box-shadow: -24px 0 60px rgba(0,0,0,0.3);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .mobile-drawer.open { transform: translateX(0); }
+  .mobile-drawer-head {
+    padding: 22px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--surface-2);
+  }
+  .mobile-drawer-head .logo img { height: 36px; }
+  .mobile-drawer-head .close {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    color: var(--text-dim);
+    transition: all 0.2s;
+  }
+  .mobile-drawer-head .close:hover { background: var(--bg); color: var(--brand); transform: rotate(90deg); }
+  .mobile-nav-list { flex: 1; padding: 14px 12px; }
+  .mobile-nav-item { display: block; }
+  .mobile-nav-item > a, .mobile-nav-item > .m-section-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px;
+    font-size: 15px; font-weight: 600;
+    color: var(--ink);
+    border-radius: 10px;
+    transition: all 0.18s;
+    min-height: 48px;
+  }
+  .mobile-nav-item > a:hover, .mobile-nav-item > .m-section-head:hover { background: var(--brand-wash); color: var(--brand); }
+  .m-section-head { cursor: pointer; user-select: none; }
+  .m-section-head .arr { transition: transform 0.2s; opacity: 0.5; }
+  .m-section.open .arr { transform: rotate(90deg); }
+  .m-section-list { max-height: 0; overflow: hidden; transition: max-height 0.3s var(--ease); }
+  .m-section.open .m-section-list { max-height: 600px; }
+  .m-section-list a {
+    display: block;
+    padding: 12px 16px 12px 36px;
+    font-size: 14px;
+    color: var(--text-dim);
+    border-radius: 8px;
+    transition: all 0.15s;
+    min-height: 44px;
+  }
+  .m-section-list a:hover { background: var(--brand-wash); color: var(--brand); }
+  .m-section-list a strong { display: block; color: var(--ink); font-weight: 600; }
+  .m-section-list a span { display: block; font-size: 12px; color: var(--text-faint); margin-top: 2px; }
+  .m-section-list a:hover strong { color: var(--brand); }
+  .mobile-drawer-foot {
+    padding: 18px 24px 24px;
+    border-top: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .mobile-drawer-foot .btn { width: 100%; justify-content: center; }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; font-size: 13.5px; font-weight: 600; border-radius: 999px; transition: all 0.25s var(--ease); letter-spacing: 0.01em; border: 1px solid transparent; cursor: pointer; line-height: 1; white-space: nowrap; position: relative; overflow: hidden; min-height: 44px; }
+  .btn-ghost { color: var(--ink); border-color: var(--border-strong); background: var(--surface); }
+  .btn-ghost:hover { background: var(--brand-wash); border-color: var(--brand); color: var(--brand); }
+  .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 4px 14px rgba(214,32,31,0.28); }
+  .btn-primary:hover { background: var(--brand-bright); box-shadow: 0 10px 24px rgba(214,32,31,0.42); transform: translateY(-2px); }
+  .btn-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.6s var(--ease); }
+  .btn-primary:hover::before { left: 150%; }
+  .btn-outline { color: var(--brand); border-color: var(--brand); background: transparent; }
+  .btn-outline:hover { background: var(--brand); color: #fff; }
+  .btn-light { color: #fff; border-color: rgba(255,255,255,0.5); background: transparent; }
+  .btn-light:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+  .btn-lg { padding: 15px 28px; font-size: 14.5px; min-height: 48px; }
+
+  .hero { position: relative; color: #fff; background-image: url('https://www.r2gaming.com/wp-content/uploads/2022/08/bg-casino-gaming-products-services.jpg'); background-size: cover; background-position: center; overflow: hidden; isolation: isolate; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,19,32,0.65), rgba(14,19,32,0.85)), radial-gradient(900px 500px at 88% 30%, rgba(214,32,31,0.35), transparent 60%); z-index: -1; }
+  .hero .orb { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(214,32,31,0.18), transparent 70%); pointer-events: none; animation: float 14s ease-in-out infinite; z-index: 0; }
+  .hero .orb-1 { top: 8%; right: 6%; width: 280px; height: 280px; }
+  .hero .orb-2 { bottom: 18%; left: 4%; width: 200px; height: 200px; animation-delay: -7s; }
+  .hero .container { position: relative; display: grid; grid-template-columns: 1.25fr 1fr; gap: 80px; align-items: center; padding-top: 100px; padding-bottom: 120px; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 11.5px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; border-radius: 999px; margin-bottom: 26px; animation: wordIn 0.7s var(--ease) both; }
+  .hero-eyebrow .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 8px var(--brand); animation: pulse 2s infinite; }
+  .hero h1 { font-family: 'Inter', sans-serif; font-size: 64px; font-weight: 800; line-height: 1.02; letter-spacing: -0.035em; color: #fff; margin-bottom: 22px; }
+  .hero h1 .word { display: inline-block; opacity: 0; animation: wordIn 0.7s var(--ease) forwards; }
+  .hero h1 .em { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; color: var(--brand-bright); letter-spacing: -0.02em; }
+  .hero p.lead { font-size: 17.5px; color: rgba(255,255,255,0.82); margin-bottom: 36px; max-width: 560px; line-height: 1.65; animation: wordIn 0.9s var(--ease) 0.6s both; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; animation: wordIn 0.9s var(--ease) 0.8s both; }
+  .hero-panel { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 18px; padding: 32px; position: relative; animation: wordIn 0.9s var(--ease) 0.4s both; }
+  .hero-panel::before { content: ''; position: absolute; top: 0; left: 32px; right: 32px; height: 3px; background: linear-gradient(90deg, var(--brand) 0%, var(--brand-bright) 50%, var(--brand) 100%); background-size: 200% 100%; border-radius: 3px; animation: shimmerSweep 3s linear infinite; }
+  .hero-panel h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .hero-panel .sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 18px; letter-spacing: 0.04em; }
+  .hero-panel ul { list-style: none; }
+  .hero-panel ul li { padding: 13px 0; font-size: 14px; color: rgba(255,255,255,0.82); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; gap: 12px; line-height: 1.55; }
+  .hero-panel ul li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .hero-panel ul li:first-child { padding-top: 0; }
+  .hero-panel ul li::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--brand); margin-top: 7px; flex-shrink: 0; }
+  .hero-panel ul li strong { color: #fff; font-weight: 600; }
+
+  .hero-stats { background: rgba(0,0,0,0.4); border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); position: relative; contain: layout style; }
+  .hero-stats::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--brand) 50%, transparent); background-size: 200% 100%; animation: shimmerSweep 5s linear infinite; }
+  .hero-stats .container { padding-top: 36px; padding-bottom: 36px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .stat-item { text-align: center; padding: 0 24px; border-right: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s var(--ease); }
+  .stat-item:hover { transform: translateY(-3px); }
+  .stat-item:last-child { border-right: 0; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 8px; letter-spacing: -0.025em; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; min-height: 48px; display: block; transition: color 0.3s; }
+  .stat-item:hover .stat-num { color: var(--brand-bright); }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+  .stat-sub { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+  .stats-source { text-align: center; font-size: 11.5px; color: rgba(255,255,255,0.5); margin-top: 24px; letter-spacing: 0.04em; }
+  .stats-source a, .stats-source strong { color: var(--brand-bright); font-weight: 600; }
+
+  section.block { padding: 120px 0; }
+  .block-head { text-align: center; margin-bottom: 64px; max-width: 740px; margin-left: auto; margin-right: auto; }
+  .block-eyebrow { display: inline-block; color: var(--brand); font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 18px; }
+  .block-head h2 { font-family: 'Inter', sans-serif; font-size: 44px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 18px; color: var(--ink); }
+  .block-head h2 .em { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; color: var(--brand); }
+  .block-head p { font-size: 17px; color: var(--text-dim); line-height: 1.65; }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-stagger > * { opacity: 0; transform: translateY(16px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+  .reveal-stagger.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
+  .reveal-stagger.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.06s; }
+  .reveal-stagger.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.12s; }
+  .reveal-stagger.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.18s; }
+  .reveal-stagger.visible > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 0.24s; }
+  .reveal-stagger.visible > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 0.30s; }
+  .reveal-stagger.visible > *:nth-child(7) { opacity: 1; transform: none; transition-delay: 0.36s; }
+  .reveal-stagger.visible > *:nth-child(8) { opacity: 1; transform: none; transition-delay: 0.42s; }
+  .reveal-stagger.visible > *:nth-child(9) { opacity: 1; transform: none; transition-delay: 0.48s; }
+
+  .services-tiles { background: var(--bg); }
+  .tiles-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .tile-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; cursor: pointer; transition: all 0.3s var(--ease); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
+  .tile-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--brand-soft); }
+  .tile-photo { height: 180px; background-size: cover; background-position: center; position: relative; border-bottom: 3px solid var(--brand); transition: transform 0.5s var(--ease); }
+  .tile-card:hover .tile-photo { transform: scale(1.05); }
+  .tile-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(15,19,32,0.55) 100%); }
+  .tile-card h3 { padding: 22px 24px 8px; font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; transition: color 0.25s; }
+  .tile-card:hover h3 { color: var(--brand); }
+  .tile-card p { padding: 0 24px 22px; font-size: 13.5px; color: var(--text-dim); line-height: 1.6; }
+  .tile-card .tile-link { margin-top: auto; padding: 14px 24px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--brand); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
+
+  .capabilities { background: var(--surface); }
+  .cap-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
+  .cap-intro h2 { font-family: 'Inter', sans-serif; font-size: 42px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 18px; }
+  .cap-intro h2 .em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--brand); font-weight: 700; }
+  .cap-intro p { font-size: 16px; color: var(--text-dim); line-height: 1.7; margin-bottom: 26px; }
+  .cap-list { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .cap-item { display: grid; grid-template-columns: 80px 1fr; gap: 32px; padding: 28px 0; border-bottom: 1px solid var(--border); transition: all 0.3s var(--ease); position: relative; }
+  .cap-item:first-child { padding-top: 0; }
+  .cap-item:last-child { border-bottom: 0; }
+  .cap-item .cap-num { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; color: var(--border-strong); line-height: 1; letter-spacing: -0.02em; transition: all 0.3s var(--ease); }
+  .cap-item:hover .cap-num { color: var(--brand); transform: translateX(4px); }
+  .cap-item h4 { font-size: 19px; font-weight: 700; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.01em; transition: color 0.25s; }
+  .cap-item:hover h4 { color: var(--brand); }
+  .cap-item p { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+
+  .products { background: var(--bg); }
+  .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .product-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; cursor: pointer; transition: all 0.3s var(--ease); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
+  .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--brand-soft); }
+  .product-photo { height: 170px; background-size: cover; background-position: center; position: relative; transition: transform 0.6s var(--ease); }
+  .product-card:hover .product-photo { transform: scale(1.06); }
+  .product-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(15,19,32,0.55) 100%); }
+  .product-body { padding: 22px 24px; flex: 1; display: flex; flex-direction: column; }
+  .product-body h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; color: var(--ink); transition: color 0.25s; }
+  .product-card:hover .product-body h3 { color: var(--brand); }
+  .product-body p { font-size: 13.5px; color: var(--text-dim); line-height: 1.6; flex: 1; }
+
+  .brands { background: var(--surface); padding: 110px 0; overflow: hidden; position: relative; }
+  .brands::before { content: ''; position: absolute; top: 0; left: -50%; width: 200%; height: 100%; background: radial-gradient(800px 200px at 50% 50%, rgba(214,32,31,0.04), transparent); pointer-events: none; }
+  .brands-head { text-align: center; margin-bottom: 50px; position: relative; }
+  .brands-head h2 { font-family: 'Inter', sans-serif; font-size: 44px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 14px; color: var(--ink); }
+  .brands-head h2 .em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--brand); font-weight: 700; }
+  .brands-head p { color: var(--text-dim); font-size: 16px; max-width: 560px; margin: 0 auto; }
+  .brand-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; position: relative; }
+  .brand-tile { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px 24px; height: 150px; display: flex; align-items: center; justify-content: center; transition: all 0.3s var(--ease); cursor: pointer; position: relative; overflow: hidden; }
+  .brand-tile::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(214,32,31,0.08), transparent 70%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+  .brand-tile:hover::before { opacity: 1; }
+  .brand-tile img { max-height: 80px; max-width: 100%; width: auto; object-fit: contain; filter: grayscale(0.3) opacity(0.88); transition: all 0.3s var(--ease); position: relative; z-index: 1; }
+  .brand-tile:hover { border-color: var(--brand-soft); box-shadow: 0 18px 40px rgba(214,32,31,0.18); transform: translateY(-4px); }
+  .brand-tile:hover img { filter: grayscale(0) opacity(1); transform: scale(1.06); }
+
+  .parts-hub { background: radial-gradient(800px 500px at 80% 0%, rgba(214,32,31,0.18), transparent 60%), radial-gradient(600px 400px at 10% 90%, rgba(214,32,31,0.1), transparent 60%), linear-gradient(180deg, var(--ink), var(--ink-deep)); color: #fff; padding: 0; position: relative; overflow: hidden; isolation: isolate; }
+  .parts-hub::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.5), transparent 80%); pointer-events: none; }
+  .parts-hub-banner { background: var(--brand); padding: 16px 0; position: relative; overflow: hidden; }
+  .parts-hub-banner::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); animation: drift 8s linear infinite; }
+  .parts-hub-banner .container { display: flex; align-items: center; justify-content: space-between; gap: 24px; position: relative; }
+  .parts-hub-banner .left { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #fff; }
+  .parts-hub-banner .right { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
+  .parts-hub-banner .right a { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+
+  .parts-hub-head { padding: 100px 0 70px; text-align: center; position: relative; z-index: 1; }
+  .parts-hub-head .ph-eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 7px 18px; background: rgba(214,32,31,0.15); border: 1px solid rgba(214,32,31,0.4); color: var(--brand-bright); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; border-radius: 999px; margin-bottom: 26px; }
+  .parts-hub-head h2 { font-family: 'Inter', sans-serif; font-size: 64px; font-weight: 800; line-height: 1.02; letter-spacing: -0.035em; color: #fff; margin-bottom: 22px; }
+  .parts-hub-head h2 .em { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; color: var(--brand-bright); letter-spacing: -0.02em; }
+  .parts-hub-head p { font-size: 18px; color: rgba(255,255,255,0.72); max-width: 640px; margin: 0 auto 32px; line-height: 1.65; }
+  .parts-hub-head .ph-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .parts-hub-head .btn-primary { background: #fff; color: var(--brand); }
+  .parts-hub-head .btn-primary:hover { background: rgba(255,255,255,0.92); }
+
+  .parts-hub-body { padding-bottom: 110px; position: relative; z-index: 1; }
+
+  .ph-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-bottom: 50px; }
+  .ph-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; overflow: hidden; cursor: pointer; transition: all 0.3s var(--ease); display: flex; flex-direction: column; }
+  .ph-card:hover { transform: translateY(-6px); background: rgba(214,32,31,0.08); border-color: rgba(214,32,31,0.4); box-shadow: 0 18px 40px rgba(0,0,0,0.4); }
+  .ph-photo { height: 170px; background: #fff; display: flex; align-items: center; justify-content: center; padding: 22px; border-bottom: 1px solid rgba(255,255,255,0.1); overflow: hidden; }
+  .ph-photo img { max-height: 126px; max-width: 100%; width: auto; height: auto; object-fit: contain; display: block; transition: transform 0.5s var(--ease); }
+  .ph-card:hover .ph-photo img { transform: scale(1.08); }
+  .ph-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+  .ph-body h4 { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px; letter-spacing: -0.005em; }
+  .ph-body p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.6; flex: 1; }
+
+  .ph-availability { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 32px; margin-bottom: 32px; }
+  .ph-availability h5 { font-size: 11px; color: var(--brand-bright); letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; margin-bottom: 18px; text-align: center; }
+  .ph-availability .pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .ph-availability .pill { padding: 11px 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 999px; font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.06em; transition: all 0.25s var(--ease); cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; }
+  .ph-availability .pill:hover, .ph-availability .pill.active { background: var(--brand); border-color: var(--brand); color: #fff; transform: translateY(-2px); box-shadow: 0 6px 18px rgba(214,32,31,0.4); }
+
+  .ph-catalog { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 36px; margin-bottom: 32px; transition: border-color 0.3s, box-shadow 0.3s; scroll-margin-top: 100px; }
+  .ph-catalog.flash { border-color: var(--brand); box-shadow: 0 0 0 4px rgba(214,32,31,0.18), 0 18px 40px rgba(0,0,0,0.4); }
+  .ph-cat-hdr { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
+  .ph-cat-hdr .left .lbl { font-size: 11px; color: var(--brand-bright); letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+  .ph-cat-hdr .left h3 { font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -0.015em; }
+  .ph-cat-hdr .right { font-size: 13px; color: rgba(255,255,255,0.55); letter-spacing: 0.06em; font-weight: 600; }
+  .ph-cat-filter { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 24px; }
+  .ph-cat-filter label { font-size: 12px; color: rgba(255,255,255,0.6); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+  .ph-cat-select { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 14px 16px; color: #fff; font-family: inherit; font-size: 14px; min-width: 240px; cursor: pointer; transition: all 0.2s; min-height: 48px; }
+  .ph-cat-select option { background: var(--ink); color: #fff; }
+  .ph-cat-select:hover, .ph-cat-select:focus { background: rgba(214,32,31,0.12); border-color: var(--brand); outline: none; }
+
+  .ph-cab-info { background: rgba(214,32,31,0.08); border: 1px solid rgba(214,32,31,0.25); border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; font-size: 13px; color: rgba(255,255,255,0.78); display: none; }
+  .ph-cab-info.visible { display: block; }
+  .ph-cab-info strong { color: var(--brand-bright); font-weight: 700; }
+
+  .ph-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .ph-chip { padding: 10px 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75); cursor: pointer; letter-spacing: 0.04em; transition: all 0.2s var(--ease); min-height: 40px; display: inline-flex; align-items: center; }
+  .ph-chip:hover { background: rgba(255,255,255,0.08); color: #fff; transform: translateY(-2px); }
+  .ph-chip.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .ph-chip .count { opacity: 0.6; margin-left: 4px; }
+
+  .ph-search { position: relative; flex: 1; max-width: 320px; }
+  .ph-search input { width: 100%; padding: 12px 14px 12px 38px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; color: #fff; font-family: inherit; font-size: 14px; transition: all 0.2s; min-height: 44px; }
+  .ph-search input::placeholder { color: rgba(255,255,255,0.4); }
+  .ph-search input:focus { outline: none; border-color: var(--brand); background: rgba(0,0,0,0.3); box-shadow: 0 0 0 3px rgba(214,32,31,0.15); }
+  .ph-search svg { position: absolute; top: 50%; left: 14px; transform: translateY(-50%); color: rgba(255,255,255,0.5); pointer-events: none; }
+
+  .ph-cat-empty { padding: 60px 40px; background: rgba(0,0,0,0.2); border: 1px dashed rgba(255,255,255,0.15); border-radius: 12px; text-align: center; color: rgba(255,255,255,0.55); font-size: 14px; }
+  .ph-cat-empty .gear { font-size: 44px; margin-bottom: 14px; display: block; animation: spinSlow 14s linear infinite; }
+  .ph-cat-empty.hidden { display: none; }
+
+  .ph-results { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .ph-results.hidden { display: none; }
+  .ph-part { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 18px 20px; display: grid; grid-template-columns: 44px 1fr; gap: 14px; transition: all 0.25s var(--ease); animation: wordIn 0.4s var(--ease) both; }
+  .ph-part:hover { background: rgba(214,32,31,0.06); border-color: rgba(214,32,31,0.3); transform: translateY(-2px); }
+  .ph-part.added { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.35); }
+  .ph-part-icon { width: 44px; height: 44px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; display: grid; place-items: center; color: var(--brand-bright); align-self: flex-start; transition: transform 0.3s var(--ease); }
+  .ph-part:hover .ph-part-icon { transform: rotate(-8deg) scale(1.08); }
+  .ph-part-info { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  .ph-part-info h5 { font-size: 14.5px; font-weight: 700; color: #fff; letter-spacing: -0.005em; line-height: 1.3; }
+  .ph-sku { font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace; font-size: 11.5px; color: var(--brand-bright); font-weight: 700; letter-spacing: 0.02em; word-break: break-all; }
+  .ph-part-info .meta { font-size: 11.5px; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .ph-part-info .tag { padding: 2px 8px; background: rgba(255,255,255,0.06); border-radius: 999px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.75); }
+  .ph-notes { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; font-style: italic; padding: 6px 10px; background: rgba(255,255,255,0.03); border-left: 2px solid rgba(214,32,31,0.4); border-radius: 0 6px 6px 0; }
+  .ph-part-actions { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 4px; flex-wrap: wrap; }
+  .ph-qty { display: flex; align-items: center; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.1); border-radius: 999px; padding: 0 4px; }
+  .ph-qty button { width: 36px; height: 36px; color: rgba(255,255,255,0.85); font-size: 18px; font-weight: 700; border-radius: 50%; display: grid; place-items: center; transition: all 0.15s; }
+  .ph-qty button:hover { background: var(--brand); color: #fff; }
+  .ph-qty input { width: 44px; background: transparent; border: none; color: #fff; font-family: inherit; font-size: 15px; font-weight: 700; text-align: center; -moz-appearance: textfield; }
+  .ph-qty input::-webkit-outer-spin-button, .ph-qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .ph-add-btn { padding: 10px 18px; background: var(--brand); color: #fff; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; transition: all 0.25s var(--ease); white-space: nowrap; min-height: 40px; }
+  .ph-add-btn:hover { background: var(--brand-bright); transform: translateY(-2px); box-shadow: 0 6px 14px rgba(214,32,31,0.4); }
+  .ph-add-btn.added { background: var(--green); }
+  .ph-no-results { padding: 40px; text-align: center; color: rgba(255,255,255,0.5); font-size: 14px; grid-column: 1 / -1; }
+  .ph-data-note { margin-top: 18px; padding: 12px 16px; background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.15); border-radius: 8px; font-size: 11.5px; color: rgba(255,255,255,0.5); text-align: center; }
+
+  .ph-cart-fab { position: fixed; bottom: 28px; right: 28px; z-index: 200; background: var(--brand); color: #fff; height: 60px; padding: 0 22px; border-radius: 999px; display: flex; align-items: center; gap: 12px; box-shadow: 0 18px 40px rgba(214,32,31,0.45); font-weight: 700; font-size: 13.5px; letter-spacing: 0.04em; cursor: pointer; transition: all 0.25s var(--ease); transform: translateY(120px); opacity: 0; pointer-events: none; animation: glowPulse 3s ease-in-out infinite; }
+  .ph-cart-fab.visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .ph-cart-fab:hover { background: var(--brand-bright); transform: translateY(-4px); box-shadow: 0 24px 50px rgba(214,32,31,0.6); }
+  .ph-cart-fab .badge { background: #fff; color: var(--brand); min-width: 24px; height: 24px; padding: 0 7px; border-radius: 999px; display: grid; place-items: center; font-size: 12px; font-weight: 800; }
+  .ph-cart-fab.bumping .badge { animation: badgeBounce 0.5s var(--ease); }
+
+  .ph-cart-overlay { position: fixed; inset: 0; z-index: 250; background: rgba(0,0,0,0.55); opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+  .ph-cart-overlay.open { opacity: 1; pointer-events: auto; }
+  .ph-cart-drawer { position: fixed; top: 0; right: 0; height: 100vh; width: 460px; max-width: 100vw; background: var(--surface); z-index: 260; transform: translateX(100%); transition: transform 0.35s var(--ease); box-shadow: -24px 0 60px rgba(0,0,0,0.3); display: flex; flex-direction: column; }
+  .ph-cart-drawer.open { transform: translateX(0); }
+  .ph-cart-head { padding: 22px 26px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--surface-2); }
+  .ph-cart-head h3 { font-size: 17px; font-weight: 800; color: var(--ink); letter-spacing: -0.01em; }
+  .ph-cart-head h3 span { color: var(--brand); }
+  .ph-cart-head .close { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--text-dim); transition: all 0.2s; }
+  .ph-cart-head .close:hover { background: var(--bg); color: var(--ink); transform: rotate(90deg); }
+  .ph-cart-list { flex: 1; overflow-y: auto; padding: 16px 26px; }
+  .ph-cart-list-empty { text-align: center; padding: 60px 20px; color: var(--text-faint); }
+  .ph-cart-list-empty .icon { width: 64px; height: 64px; margin: 0 auto 18px; background: var(--brand-wash); border-radius: 50%; display: grid; place-items: center; color: var(--brand); }
+  .ph-cart-list-empty h4 { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .ph-cart-list-empty p { font-size: 13px; color: var(--text-dim); }
+  .ph-cart-item { padding: 16px 0; border-bottom: 1px solid var(--border); display: flex; gap: 14px; align-items: flex-start; animation: wordIn 0.3s var(--ease) both; }
+  .ph-cart-item:last-child { border-bottom: 0; }
+  .ph-cart-item .ic { width: 36px; height: 36px; background: var(--brand-wash); border-radius: 8px; display: grid; place-items: center; color: var(--brand); flex-shrink: 0; }
+  .ph-cart-item .info { flex: 1; min-width: 0; }
+  .ph-cart-item h5 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 3px; letter-spacing: -0.005em; }
+  .ph-cart-item .sku-line { font-size: 11.5px; color: var(--brand); font-family: 'JetBrains Mono', monospace; font-weight: 700; margin-bottom: 3px; word-break: break-all; }
+  .ph-cart-item .meta { font-size: 11.5px; color: var(--text-faint); letter-spacing: 0.02em; }
+  .ph-cart-item .ctrls { display: flex; align-items: center; gap: 14px; margin-top: 10px; }
+  .ph-cart-item .qty { display: flex; align-items: center; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 0 4px; }
+  .ph-cart-item .qty button { width: 32px; height: 32px; color: var(--text-dim); font-size: 17px; font-weight: 700; border-radius: 50%; display: grid; place-items: center; transition: all 0.15s; }
+  .ph-cart-item .qty button:hover { color: var(--brand); background: var(--brand-wash); }
+  .ph-cart-item .qty input { width: 38px; background: transparent; border: none; color: var(--ink); font-family: inherit; font-size: 14px; font-weight: 700; text-align: center; }
+  .ph-cart-item .remove { color: var(--text-faint); font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer; transition: color 0.15s; padding: 8px 0; }
+  .ph-cart-item .remove:hover { color: var(--brand); }
+  .ph-cart-foot { border-top: 1px solid var(--border); padding: 20px 26px; background: var(--surface-2); }
+  .ph-cart-foot .total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13px; color: var(--text-dim); }
+  .ph-cart-foot .total strong { color: var(--ink); font-weight: 800; font-size: 16px; }
+  .ph-cart-foot .actions { display: flex; gap: 10px; }
+  .ph-cart-foot .clear-btn { padding: 13px 16px; color: var(--text-dim); font-size: 13px; font-weight: 600; border-radius: 999px; transition: all 0.15s; min-height: 48px; }
+  .ph-cart-foot .clear-btn:hover { color: var(--brand); background: var(--brand-wash); }
+  .ph-cart-foot .submit-btn { flex: 1; padding: 14px 18px; background: var(--brand); color: #fff; border-radius: 999px; font-size: 13.5px; font-weight: 700; letter-spacing: 0.02em; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.25s var(--ease); min-height: 48px; }
+  .ph-cart-foot .submit-btn:hover { background: var(--brand-bright); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(214,32,31,0.35); }
+  .ph-cart-foot .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .ph-modal-overlay { position: fixed; inset: 0; z-index: 270; background: rgba(0,0,0,0.65); opacity: 0; pointer-events: none; transition: opacity 0.25s; display: grid; place-items: center; padding: 24px; overflow-y: auto; }
+  .ph-modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .ph-modal { background: var(--surface); border-radius: 16px; max-width: 580px; width: 100%; max-height: calc(100vh - 48px); overflow-y: auto; box-shadow: 0 40px 100px rgba(0,0,0,0.4); transform: scale(0.96); opacity: 0; transition: all 0.3s var(--ease); }
+  .ph-modal-overlay.open .ph-modal { transform: scale(1); opacity: 1; }
+  .ph-modal-head { padding: 22px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; }
+  .ph-modal-head h3 { font-size: 20px; font-weight: 800; color: var(--ink); letter-spacing: -0.015em; margin-bottom: 4px; }
+  .ph-modal-head p { font-size: 13px; color: var(--text-dim); }
+  .ph-modal-head .close { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--text-dim); transition: all 0.2s; flex-shrink: 0; margin-left: 16px; }
+  .ph-modal-head .close:hover { background: var(--bg); color: var(--ink); transform: rotate(90deg); }
+  .ph-modal-body { padding: 22px 24px; }
+  .ph-modal-summary { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; max-height: 200px; overflow-y: auto; }
+  .ph-modal-summary h6 { font-size: 11px; color: var(--brand); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+  .ph-modal-summary .row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; color: var(--ink); border-bottom: 1px dashed var(--border); gap: 10px; }
+  .ph-modal-summary .row:last-child { border-bottom: 0; }
+  .ph-modal-summary .row .q { color: var(--brand); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .ph-modal-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .ph-modal-form .field { display: flex; flex-direction: column; gap: 5px; }
+  .ph-modal-form .field.full { grid-column: 1 / -1; }
+  .ph-modal-form label { font-size: 10.5px; color: var(--text-faint); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; }
+  .ph-modal-form input, .ph-modal-form textarea { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 8px; padding: 12px 14px; font-family: inherit; font-size: 14px; color: var(--ink); transition: all 0.2s; min-height: 44px; }
+  .ph-modal-form input:focus, .ph-modal-form textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-wash); }
+  .ph-modal-form textarea { resize: vertical; min-height: 80px; }
+  .ph-modal-foot { padding: 16px 24px; background: var(--surface-2); border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  .ph-modal-foot .note { font-size: 11.5px; color: var(--text-faint); }
+  .ph-modal-foot .send-btn { padding: 13px 22px; background: var(--brand); color: #fff; border-radius: 999px; font-size: 13.5px; font-weight: 700; letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s var(--ease); min-height: 48px; }
+  .ph-modal-foot .send-btn:hover { background: var(--brand-bright); transform: translateY(-1px); }
+
+  .ph-success { padding: 40px 24px; text-align: center; display: none; }
+  .ph-success.show { display: block; }
+  .ph-success .check { width: 64px; height: 64px; margin: 0 auto 18px; background: rgba(16,185,129,0.15); border-radius: 50%; display: grid; place-items: center; color: var(--green); animation: badgeBounce 0.6s var(--ease); }
+  .ph-success h3 { font-size: 20px; font-weight: 800; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.01em; }
+  .ph-success p { font-size: 14px; color: var(--text-dim); max-width: 380px; margin: 0 auto 22px; line-height: 1.6; }
+  .ph-success .ref { display: inline-block; padding: 8px 16px; background: var(--bg); border: 1px dashed var(--border-strong); border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--brand); font-weight: 700; margin-bottom: 22px; word-break: break-all; }
+
+  .ph-toast { position: fixed; bottom: 110px; right: 28px; z-index: 220; background: var(--ink); color: #fff; padding: 12px 20px; border-radius: 999px; font-size: 13px; font-weight: 600; box-shadow: 0 12px 30px rgba(0,0,0,0.4); display: flex; align-items: center; gap: 10px; transform: translateY(20px); opacity: 0; pointer-events: none; transition: all 0.3s var(--ease); max-width: calc(100vw - 56px); }
+  .ph-toast.show { transform: translateY(0); opacity: 1; }
+  .ph-toast .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 1.5s infinite; }
+
+  .contact { background: var(--ink); color: #cbd0d8; position: relative; overflow: hidden; }
+  .contact::before { content: ''; position: absolute; top: -150px; right: -100px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(214,32,31,0.18), transparent 70%); pointer-events: none; animation: float 20s ease-in-out infinite; }
+  .contact .block-eyebrow { color: var(--brand-bright); }
+  .contact h2 { color: #fff; }
+  .contact .block-head p { color: rgba(255,255,255,0.65); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; position: relative; z-index: 1; }
+  .contact-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .contact-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 22px 24px; transition: all 0.3s var(--ease); }
+  .contact-card:hover { background: rgba(214,32,31,0.08); border-color: rgba(214,32,31,0.4); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.3); }
+  .contact-card .clbl { font-size: 11px; color: var(--brand-bright); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; margin-bottom: 5px; }
+  .contact-card .cval { font-size: 14px; color: #fff; line-height: 1.45; font-weight: 500; }
+  .contact-card .cval a { color: #fff; transition: color 0.15s; }
+  .contact-card .cval a:hover { color: var(--brand-bright); }
+  .contact-form { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 32px; }
+  .contact-form h3 { color: #fff; font-size: 22px; font-weight: 700; margin-bottom: 22px; }
+  .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .cf-field { display: flex; flex-direction: column; gap: 6px; }
+  .cf-field.full { grid-column: 1 / -1; }
+  .cf-field label { font-size: 11.5px; color: rgba(255,255,255,0.6); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
+  .cf-field input, .cf-field select, .cf-field textarea { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 13px 14px; color: #fff; font-family: inherit; font-size: 15px; transition: all 0.2s; min-height: 48px; }
+  .cf-field input::placeholder, .cf-field textarea::placeholder { color: rgba(255,255,255,0.4); }
+  .cf-field input:focus, .cf-field select:focus, .cf-field textarea:focus { outline: none; border-color: var(--brand); background: rgba(214,32,31,0.06); box-shadow: 0 0 0 3px rgba(214,32,31,0.15); }
+  .cf-field textarea { resize: vertical; min-height: 120px; }
+  .cf-field select option { background: var(--ink); color: #fff; }
+
+  footer { background: #050709; color: #cbd0d8; padding: 80px 0 32px; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 56px; }
+  .footer-col h5 { font-size: 11.5px; color: var(--brand-bright); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; margin-bottom: 18px; position: relative; padding-bottom: 8px; }
+  .footer-col h5::after { content: ''; position: absolute; left: 0; bottom: 0; width: 20px; height: 2px; background: var(--brand); }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 11px; }
+  .footer-col ul li a { font-size: 13.5px; color: #9ca3af; transition: all 0.2s; display: inline-block; padding: 4px 0; }
+  .footer-col ul li a:hover { color: var(--brand-bright); transform: translateX(4px); }
+  .footer-brand .logo { background: #fff; padding: 10px 16px; border-radius: 14px; display: inline-flex; transition: all 0.3s var(--ease); box-shadow: 0 4px 14px rgba(0,0,0,0.3); }
+  .footer-brand .logo:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 30px rgba(214,32,31,0.35); }
+  .footer-brand .logo img { filter: none; }
+  .footer-brand .logo-sep { background: var(--border); }
+  .footer-brand .logo-tag strong { color: var(--ink); }
+  .footer-brand .logo-tag { color: var(--text-faint); }
+  .footer-brand p { font-size: 13.5px; color: #9ca3af; line-height: 1.75; margin: 20px 0; max-width: 300px; }
+  .footer-contact { font-size: 13.5px; color: #9ca3af; line-height: 1.85; }
+  .footer-contact strong { color: #fff; }
+  .footer-bottom { padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; color: #6b7280; flex-wrap: wrap; gap: 16px; }
+  .footer-bottom .legal { display: flex; gap: 22px; flex-wrap: wrap; }
+
+  /* ===== RESPONSIVE — TIGHTENED MOBILE ===== */
+  @media (max-width: 1100px) {
+    .hero .container { grid-template-columns: 1fr; gap: 50px; padding-top: 70px; padding-bottom: 90px; }
+    .hero h1, .parts-hub-head h2 { font-size: 48px; }
+    .block-head h2, .brands-head h2 { font-size: 36px; }
+    .tiles-grid, .ph-cards { grid-template-columns: repeat(2, 1fr); }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .brand-grid { grid-template-columns: repeat(3, 1fr); }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px 0; }
+    .stat-item:nth-child(2) { border-right: 0; }
+    .cap-layout, .contact-grid { grid-template-columns: 1fr; gap: 50px; }
+    .ph-results { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-cta .btn-ghost { display: none; }
+    .section-divider .container { flex-wrap: wrap; height: auto; padding-top: 24px; padding-bottom: 24px; gap: 16px; }
+  }
+  @media (max-width: 720px) {
+    .container { padding: 0 18px; }
+    .topbar { font-size: 11px; }
+    .topbar .container { height: auto; padding: 8px 18px; flex-wrap: wrap; gap: 8px; row-gap: 6px; }
+    .topbar-left, .topbar-right { gap: 12px; flex-wrap: wrap; }
+    .topbar-left .badge { font-size: 10px; }
+    .nav .container { height: 64px; gap: 12px; }
+    .logo img { height: 34px; }
+    .logo-sep, .logo-tag { display: none; }
+    .nav-cta { margin-left: 0; gap: 8px; }
+    .nav-cta .btn-primary { padding: 10px 14px; font-size: 12.5px; }
+    .hero { background-attachment: scroll; }
+    .hero .container { padding-top: 56px; padding-bottom: 80px; gap: 36px; }
+    .hero h1, .parts-hub-head h2 { font-size: 34px; line-height: 1.08; }
+    .hero p.lead { font-size: 15.5px; }
+    .hero-eyebrow { font-size: 10px; padding: 6px 14px; letter-spacing: 0.18em; }
+    .hero-panel { padding: 24px; }
+    section.block { padding: 64px 0; }
+    .parts-hub-head { padding: 64px 0 44px; }
+    .parts-hub-head p { font-size: 15.5px; }
+    .parts-hub-body { padding-bottom: 64px; }
+    .block-head { margin-bottom: 44px; }
+    .block-head h2, .brands-head h2 { font-size: 26px; }
+    .block-head p { font-size: 15px; }
+    .stats-grid { grid-template-columns: 1fr; gap: 0; }
+    .stat-item { border-right: 0; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 18px 24px; }
+    .stat-item:last-child { border-bottom: 0; }
+    .stat-num { font-size: 38px; min-height: 42px; }
+    .tiles-grid, .products-grid, .ph-cards, .footer-grid { grid-template-columns: 1fr; }
+    .brand-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .brand-tile { height: 130px; padding: 24px 18px; }
+    .brand-tile img { max-height: 70px; }
+    .contact-cards { grid-template-columns: 1fr; }
+    .contact-form { padding: 24px; }
+    .cf-row, .ph-modal-form .row { grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
+    .cap-layout { gap: 36px; }
+    .cap-item { grid-template-columns: 56px 1fr; gap: 16px; padding: 22px 0; }
+    .cap-item .cap-num { font-size: 32px; }
+    .cap-item h4 { font-size: 17px; }
+    .parts-hub-banner { padding: 14px 0; }
+    .parts-hub-banner .container { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .parts-hub-banner .left { font-size: 10px; }
+    .parts-hub-banner .right { font-size: 12px; }
+    .ph-catalog { padding: 22px; }
+    .ph-cat-hdr .left h3 { font-size: 22px; }
+    .ph-cat-hdr .right { font-size: 12px; width: 100%; }
+    .ph-cat-filter { flex-direction: column; align-items: stretch; gap: 8px; }
+    .ph-cat-filter label { display: none; }
+    .ph-cat-select, .ph-search { min-width: 0; max-width: none; width: 100%; }
+    .ph-search { max-width: 100%; }
+    .ph-part { padding: 16px; grid-template-columns: 40px 1fr; gap: 12px; }
+    .ph-part-icon { width: 40px; height: 40px; }
+    .ph-part-info h5 { font-size: 14px; }
+    .ph-part-actions { flex-direction: row; gap: 8px; }
+    .ph-add-btn { padding: 10px 14px; font-size: 12px; flex: 1; justify-content: center; display: inline-flex; align-items: center; }
+    .ph-availability { padding: 22px; }
+    .ph-cart-drawer { width: 100vw; }
+    .ph-cart-foot { padding: 16px 20px; }
+    .ph-cart-foot .actions { flex-direction: column-reverse; }
+    .ph-cart-foot .clear-btn { width: 100%; }
+    .ph-cart-fab { right: 16px; bottom: 16px; padding: 0 18px; height: 56px; font-size: 13px; }
+    .ph-modal-overlay { padding: 16px; align-items: flex-start; padding-top: 30px; }
+    .ph-modal-head { padding: 20px 20px; }
+    .ph-modal-head h3 { font-size: 18px; }
+    .ph-modal-body { padding: 18px 20px; }
+    .ph-modal-foot { padding: 14px 20px; }
+    .ph-modal-foot .note { width: 100%; text-align: center; }
+    .ph-modal-foot .send-btn { width: 100%; justify-content: center; }
+    .ph-toast { right: 16px; bottom: 90px; padding: 10px 16px; font-size: 12.5px; }
+    .footer-grid { gap: 32px; }
+    .footer-brand p { max-width: none; }
+    .footer-bottom { font-size: 11.5px; flex-direction: column; align-items: flex-start; }
+    .scroll-cue { display: none; }
+    .section-divider .container { padding-top: 18px; padding-bottom: 18px; gap: 12px; }
+    .section-divider .num { font-size: 38px; }
+    .section-divider .meta { padding-left: 16px; }
+    .section-divider .meta .title { font-size: 15px; }
+    .section-divider .accent-line { display: none; }
+    .hero .orb-1 { width: 160px; height: 160px; }
+    .hero .orb-2 { width: 120px; height: 120px; }
+  }
+  @media (max-width: 380px) {
+    .hero h1, .parts-hub-head h2 { font-size: 30px; }
+    .block-head h2, .brands-head h2 { font-size: 22px; }
+    .stat-num { font-size: 34px; }
+    .brand-grid { grid-template-columns: 1fr; }
+    .nav-cta .btn-primary { padding: 9px 12px; font-size: 11.5px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-bar" id="scroll-bar"></div>
+<div class="js-error-banner" id="js-error-banner"></div>
+
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left">
+      <span class="badge"><span class="dot"></span> Where the Customer Comes First</span>
+      <span style="opacity:0.6">Operations Coast-to-Coast across Canada</span>
+    </div>
+    <div class="topbar-right">
+      <a href="#">Français</a><span class="sep">|</span>
+      <a href="tel:9059013108"><strong>(905) 901-3108</strong></a><span class="sep">|</span>
+      <a href="mailto:info@r2gaming.com">info@r2gaming.com</a>
+    </div>
+  </div>
+</div>
+
+<nav class="nav" id="nav">
+  <div class="container">
+    <a href="#" class="logo">
+      <img src="https://www.r2gaming.com/wp-content/uploads/2022/09/R2-logo-100.png" alt="R2 Gaming Logo" />
+      <span class="logo-sep"></span>
+      <span class="logo-tag"><strong>Est. 2005</strong>Burlington, ON</span>
+    </a>
+    <div class="nav-links">
+      <div class="has-menu">
+        <button>About <svg class="chev" viewBox="0 0 12 12" fill="currentColor"><path d="M2 4l4 4 4-4"/></svg></button>
+        <div class="menu">
+          <a href="/r2-group"><strong>R2 Group</strong><span>The companies behind R2 Gaming</span></a>
+          <a href="/r2-gaming"><strong>R2 Gaming</strong><span>Full-service gaming distributor</span></a>
+          <a href="https://lvibc.com" target="_blank"><strong>LVI</strong><span>BC field-service partner</span></a>
+          <a href="/r2-technology-solutions"><strong>R2 Technology Solutions</strong><span>Custom tech for North America</span></a>
+          <a href="/on-the-ground"><strong>On the Ground</strong><span>Facilities &amp; field-service gallery</span></a>
+          <a href="/careers"><strong>Careers</strong><span>Join the R2 Group</span></a>
+        </div>
+      </div>
+      <div class="has-menu">
+        <button>Products <svg class="chev" viewBox="0 0 12 12" fill="currentColor"><path d="M2 4l4 4 4-4"/></svg></button>
+        <div class="menu">
+          <a href="#products"><strong>Slot Machines</strong><span>Reel, video &amp; progressive cabinets</span></a>
+          <a href="#products"><strong>Electronic Table Games</strong><span>Multi-station ETG solutions</span></a>
+          <a href="#products"><strong>Internet Gaming &amp; Sports Betting</strong><span>iGaming platform deployment</span></a>
+          <a href="#products"><strong>Peripherals &amp; Systems</strong><span>Kiosks, player tracking, jackpot</span></a>
+          <a href="#products"><strong>Cash Processing</strong><span>Bill validators, printers, recyclers</span></a>
+          <a href="#products"><strong>Casino Performance Seating</strong><span>Patir ergonomic chairs</span></a>
+          <a href="#products"><strong>Signage</strong><span>Large-format displays</span></a>
+          <a href="#products"><strong>Marketing Solutions</strong><span>Operator marketing support</span></a>
+        </div>
+      </div>
+      <a href="#brands">Brands</a>
+      <a href="#parts">Parts Hub</a>
+      <div class="has-menu">
+        <button>Social Responsibility <svg class="chev" viewBox="0 0 12 12" fill="currentColor"><path d="M2 4l4 4 4-4"/></svg></button>
+        <div class="menu">
+          <a href="/social-responsibility#our-people"><strong>Our People</strong><span>The team that powers R2 Gaming</span></a>
+          <a href="/social-responsibility#safety"><strong>Safety</strong><span>Standards on every site, every shift</span></a>
+          <a href="/social-responsibility#mother-earth"><strong>Mother Earth</strong><span>Environmental responsibility</span></a>
+          <a href="/social-responsibility#community"><strong>Community</strong><span>Serving where we live and work</span></a>
+        </div>
+      </div>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#parts" class="btn btn-ghost">Parts Hub</a>
+      <a href="#contact" class="btn btn-primary">Request a Quote</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile drawer -->
+<div class="mobile-overlay" id="mobile-overlay"></div>
+<aside class="mobile-drawer" id="mobile-drawer">
+  <div class="mobile-drawer-head">
+    <a href="#" class="logo">
+      <img src="https://www.r2gaming.com/wp-content/uploads/2022/09/R2-logo-100.png" alt="R2 Gaming Logo" />
+    </a>
+    <button class="close" id="mobile-close" aria-label="Close menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-nav-list">
+    <div class="mobile-nav-item m-section">
+      <div class="m-section-head"><span>About</span><svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
+      <div class="m-section-list">
+        <a href="/r2-group"><strong>R2 Group</strong><span>The companies behind R2 Gaming</span></a>
+        <a href="/r2-gaming"><strong>R2 Gaming</strong><span>Full-service gaming distributor</span></a>
+        <a href="https://lvibc.com" target="_blank"><strong>LVI</strong><span>BC field-service partner</span></a>
+        <a href="/r2-technology-solutions"><strong>R2 Technology Solutions</strong><span>Custom tech for North America</span></a>
+        <a href="/on-the-ground"><strong>On the Ground</strong><span>Facilities &amp; field-service gallery</span></a>
+        <a href="/careers"><strong>Careers</strong><span>Join the R2 Group</span></a>
+      </div>
+    </div>
+    <div class="mobile-nav-item m-section">
+      <div class="m-section-head"><span>Products</span><svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
+      <div class="m-section-list">
+        <a href="#products" data-close-drawer><strong>Slot Machines</strong></a>
+        <a href="#products" data-close-drawer><strong>Electronic Table Games</strong></a>
+        <a href="#products" data-close-drawer><strong>Internet Gaming &amp; Sports Betting</strong></a>
+        <a href="#products" data-close-drawer><strong>Peripherals &amp; Systems</strong></a>
+        <a href="#products" data-close-drawer><strong>Cash Processing</strong></a>
+        <a href="#products" data-close-drawer><strong>Casino Performance Seating</strong></a>
+        <a href="#products" data-close-drawer><strong>Signage</strong></a>
+        <a href="#products" data-close-drawer><strong>Marketing Solutions</strong></a>
+      </div>
+    </div>
+    <div class="mobile-nav-item"><a href="#brands" data-close-drawer>Brands</a></div>
+    <div class="mobile-nav-item"><a href="#parts" data-close-drawer>Parts Hub</a></div>
+    <div class="mobile-nav-item m-section">
+      <div class="m-section-head"><span>Social Responsibility</span><svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
+      <div class="m-section-list">
+        <a href="/social-responsibility#our-people"><strong>Our People</strong></a>
+        <a href="/social-responsibility#safety"><strong>Safety</strong></a>
+        <a href="/social-responsibility#mother-earth"><strong>Mother Earth</strong></a>
+        <a href="/social-responsibility#community"><strong>Community</strong></a>
+      </div>
+    </div>
+    <div class="mobile-nav-item"><a href="#contact" data-close-drawer>Contact</a></div>
+  </nav>
+  <div class="mobile-drawer-foot">
+    <a href="tel:9059013108" class="btn btn-ghost">📞 (905) 901-3108</a>
+    <a href="#contact" class="btn btn-primary" data-close-drawer>Request a Quote</a>
+  </div>
+</aside>
+
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="container">
+    <div>
+      <span class="hero-eyebrow"><span class="pulse"></span> Established 2005 · Burlington, ON · Casino · Lottery · Bingo</span>
+      <h1>
+        <span class="word" style="animation-delay:0.1s">Canada's</span>
+        <span class="word" style="animation-delay:0.2s">&nbsp;<span class="em">full-service</span></span>
+        <span class="word" style="animation-delay:0.35s">&nbsp;gaming</span>
+        <span class="word" style="animation-delay:0.45s">&nbsp;company.</span>
+      </h1>
+      <p class="lead">Established in 2005, R2 Gaming specializes in distribution and services to the casino gaming, lottery, and bingo industry across Canada — product sales, field installation, preventative maintenance, technical training, product staging, warehousing, logistics, and in-house electronic repair.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary btn-lg">Get in touch</a>
+        <a href="#products" class="btn btn-light btn-lg">Explore products</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <h3>Why partner with R2 Gaming</h3>
+      <div class="sub">Established 2005 · Canadian-owned</div>
+      <ul>
+        <li><span><strong>Coast-to-coast coverage</strong> across every Canadian province</span></li>
+        <li><span><strong>Five Tier-1 OEM partnerships</strong> across slots, cash, ETGs, and seating</span></li>
+        <li><span><strong>Authorized distributor</strong> to Crown Agencies and gaming operators</span></li>
+        <li><span><strong>In-house electronic repair</strong> serving all of Canada</span></li>
+        <li><span><strong>R2 Group</strong> — three companies, one service standard</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-num">101,220</div><div class="stat-label">Equipment Units Serviced</div><div class="stat-sub">Across the R2 Group footprint</div></div>
+        <div class="stat-item"><div class="stat-num">3,833</div><div class="stat-label">Customer Locations</div><div class="stat-sub">Lottery, casino &amp; entertainment</div></div>
+        <div class="stat-item"><div class="stat-num">11,754</div><div class="stat-label">Annual Repairs</div><div class="stat-sub">Combined R2 Gaming + LVI</div></div>
+        <div class="stat-item"><div class="stat-num">1.5 hr</div><div class="stat-label">Urban Response Time</div><div class="stat-sub">SLA-backed field service</div></div>
+      </div>
+      <div class="stats-source">Combined service footprint of the R2 Group — <strong>R2 Gaming</strong>, <a href="https://lvibc.com" target="_blank">LVI</a>, and R2 Technology Solutions — covering Crown Agencies, casinos across Canada, and entertainment operators.</div>
+    </div>
+  </div>
+  <a class="scroll-cue" href="#capabilities" aria-label="Scroll to explore">
+    Scroll to explore
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
+</section>
+
+<div class="section-divider"><div class="container"><div class="num">01</div><div class="meta"><div class="lbl">Section 01</div><div class="title">What We Do</div></div><div class="accent-line"></div></div></div>
+<section class="block services-tiles">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="block-eyebrow">What We Do</span>
+      <h2>Sales. Service. Parts. <span class="em">Technical support.</span></h2>
+      <p>The four service areas R2 Gaming offers.</p>
+    </div>
+    <div class="tiles-grid reveal-stagger">
+      <div class="tile-card"><div class="tile-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/11/Novomatic_G2E-300x176.jpg')"></div><h3>Sales</h3><p>Procurement, contract negotiation, and lifecycle planning for slot machines, ETGs, peripherals, and full gaming-floor refreshes.</p><div class="tile-link">Explore Sales <span>→</span></div></div>
+      <div class="tile-card"><div class="tile-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/08/novomatic-electronic-roulette.jpg')"></div><h3>Products</h3><p>Nine product categories spanning slot machines, ETGs, cash processing, peripherals, seating, signage, and marketing.</p><div class="tile-link">View Products <span>→</span></div></div>
+      <div class="tile-card"><div class="tile-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/slot-machine-parts.jpg')"></div><h3>Parts</h3><p>Bill validators, ticket printers, monitors, power supplies, PCBs, and consumables — OEM and aftermarket.</p><div class="tile-link">Visit Parts Hub <span>→</span></div></div>
+      <div class="tile-card"><div class="tile-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/09/field-tech-install-casino.jpg')"></div><h3>Technical Support</h3><p>Field installation, preventative maintenance, electronic repair, and technical training programs.</p><div class="tile-link">Request Support <span>→</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><div class="container"><div class="num">02</div><div class="meta"><div class="lbl">Section 02</div><div class="title">Specialist Capabilities</div></div><div class="accent-line"></div></div></div>
+<section class="block capabilities" id="capabilities">
+  <div class="container">
+    <div class="cap-layout">
+      <div class="cap-intro reveal">
+        <span class="block-eyebrow">Specialist Capabilities</span>
+        <h2>End-to-end capabilities, <span class="em">from PO to floor.</span></h2>
+        <p>The six service lines R2 Gaming delivers to Crown Agencies and gaming operators across Canada.</p>
+        <a href="#contact" class="btn btn-primary">Discuss your project</a>
+      </div>
+      <div class="cap-list reveal-stagger">
+        <div class="cap-item"><div class="cap-num">01</div><div><h4>Product Sales</h4><p>Direct distribution from JCM Global, Novomatic, Sega Sammy, CountR, and Patir Casino Seating.</p></div></div>
+        <div class="cap-item"><div class="cap-num">02</div><div><h4>Field Installation</h4><p>Coast-to-coast deployment for new cabinets, ETGs, peripherals, and full gaming-floor refreshes.</p></div></div>
+        <div class="cap-item"><div class="cap-num">03</div><div><h4>Preventative Maintenance</h4><p>Service contracts that keep slot machines, ETGs, and peripherals running between major service intervals.</p></div></div>
+        <div class="cap-item"><div class="cap-num">04</div><div><h4>Technical Training</h4><p>Certified training programs for operator technical teams and floor attendants.</p></div></div>
+        <div class="cap-item"><div class="cap-num">05</div><div><h4>Staging, Warehousing &amp; Logistics</h4><p>Receiving, staging, kitting, and product assembly ahead of installation — handled in our facilities.</p></div></div>
+        <div class="cap-item"><div class="cap-num">06</div><div><h4>In-House Electronic Repair</h4><p>Bench repair, refurbishment, and depot service — supporting operators across Canada.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><div class="container"><div class="num">03</div><div class="meta"><div class="lbl">Section 03</div><div class="title">Products</div></div><div class="accent-line"></div></div></div>
+<section class="block products" id="products">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="block-eyebrow">Products</span>
+      <h2>World-class solutions through <span class="em">Tier-1 manufacturers.</span></h2>
+      <p>Nine product categories carried directly from the OEMs we represent in Canada.</p>
+    </div>
+    <div class="products-grid reveal-stagger">
+      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/slot-machine-service-provider-scaled.jpg')"></div><div class="product-body"><h3>Slot Machines</h3><p>Reel, video, and progressive cabinets from the OEMs we represent.</p></div></div>
+      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2021/09/Mission-Poker2.jpg')"></div><div class="product-body"><h3>Electronic Table Games</h3><p>Multi-station ETG solutions for table games from R2 Gaming's brand portfolio.</p></div></div>
+      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/11/Internet-Gaming_Background-300x200.png')"></div><div class="product-body"><h3>Internet Gaming &amp; Sports Betting</h3><p>iGaming and sports betting offerings for operators under provincial frameworks.</p></div></div>
+      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/cash-handling.jpg')"></div><div class="product-body"><h3>Cash Processing</h3><p>JCM Global bill validators, ticket printers, recyclers. CountR cash management.</p></div></div>
+      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/Peripherals-Systems.jpg')"></div><div class="product-body"><h3>Peripherals &amp; Systems</h3><p>Kiosks, player tracking, jackpot management, and supporting peripherals.</p></div></div>
+      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2024/09/Gary-Platt-Casino-Performance-Chairs-R2-Gaming.jpg')"></div><div class="product-body"><h3>Casino Performance Seating</h3><p>Patir casino seating — represented by R2 Gaming for the Canadian market.</p></div></div>
+      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2024/09/Signage.jpg')"></div><div class="product-body"><h3>Signage</h3><p>Signage and large-format displays for casino, lottery, and bingo environments.</p></div></div>
+      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/marketing-solutiong.jpg')"></div><div class="product-body"><h3>Marketing Solutions</h3><p>Marketing solutions for casino, lottery, and bingo operators across Canada.</p></div></div>
+      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/08/bg-casino-gaming-products-services.jpg')"></div><div class="product-body"><h3>Parts</h3><p>Bill validators, ticket printers, monitors, power supplies, PCBs, consumables.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><div class="container"><div class="num">04</div><div class="meta"><div class="lbl">Section 04</div><div class="title">Brand Partners</div></div><div class="accent-line"></div></div></div>
+<section class="brands" id="brands">
+  <div class="container">
+    <div class="brands-head reveal">
+      <span class="block-eyebrow">Our Partners</span>
+      <h2>Our <span class="em">Brands.</span></h2>
+      <p>Decades of positioning brands ahead of their competition.</p>
+    </div>
+    <div class="brand-grid reveal-stagger">
+      <div class="brand-tile"><img src="https://rakeshr2.github.io/R2-Gaming-Website/JCMlogo.png" alt="JCM Global" /></div>
+      <div class="brand-tile"><img src="https://rakeshr2.github.io/R2-Gaming-Website/NovomaticLogo.png" alt="Novomatic" /></div>
+      <div class="brand-tile"><img src="https://rakeshr2.github.io/R2-Gaming-Website/SegaSammylogo.png" alt="Sega Sammy" /></div>
+      <div class="brand-tile"><img src="https://rakeshr2.github.io/R2-Gaming-Website/CountRlogo.png" alt="CountR" /></div>
+      <div class="brand-tile"><img src="https://rakeshr2.github.io/R2-Gaming-Website/patierlogo.webp" alt="Patir Casino Seating" /></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider on-dark"><div class="container"><div class="num">05</div><div class="meta"><div class="lbl">Section 05 · Dedicated Hub</div><div class="title">Parts Hub</div></div><div class="accent-line"></div></div></div>
+<section class="parts-hub" id="parts">
+  <div class="parts-hub-banner">
+    <div class="container">
+      <div class="left">R2 Parts Hub · Dedicated Destination</div>
+      <div class="right">Build a Cart → <a href="mailto:sales@r2gaming.com">sales@r2gaming.com</a></div>
+    </div>
+  </div>
+
+  <div class="parts-hub-head">
+    <div class="container">
+      <span class="ph-eyebrow">Genuine Parts Supply</span>
+      <h2>Parts &amp; <span class="em">Components.</span></h2>
+      <p>Browse by manufacturer and cabinet, add parts to your Cart, and we'll respond with a quote within one business day. Pricing is provided by quote only.</p>
+      <div class="ph-actions">
+        <a href="#ph-catalog" class="btn btn-primary btn-lg">Browse the Catalog</a>
+        <a href="https://www.r2gaming.com/wp-content/uploads/2022/10/R2-Gaming-Flyer.pdf" target="_blank" class="btn btn-light btn-lg">Download Parts Flyer</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="parts-hub-body">
+    <div class="container">
+      <div class="ph-cards reveal-stagger">
+        <div class="ph-card"><div class="ph-photo"><img src="https://rakeshr2.github.io/R2-Gaming-Website/iVIZION.jpg" alt="Bill Validators" /></div><div class="ph-body"><h4>Bill Validators &amp; Currency</h4><p>OEM-grade parts for JCM Global, MEI, and other leading manufacturers.</p></div></div>
+        <div class="ph-card"><div class="ph-photo"><img src="https://rakeshr2.github.io/R2-Gaming-Website/GEN5.png" alt="Ticket Printers" /></div><div class="ph-body"><h4>Ticket Printers &amp; TITO</h4><p>Printer heads, paper rolls, and full replacement units for all major TITO systems.</p></div></div>
+        <div class="ph-card"><div class="ph-photo"><img src="https://rakeshr2.github.io/R2-Gaming-Website/displayandmonitor.png" alt="Monitor &amp; Power Supplies" /></div><div class="ph-body"><h4>Monitor &amp; Power Supplies</h4><p>LCD panels, touchscreens, backlights, and display assemblies for multiple OEM platforms.</p></div></div>
+        <div class="ph-card"><div class="ph-photo"><img src="https://rakeshr2.github.io/R2-Gaming-Website/pcb.png" alt="PCBs" /></div><div class="ph-body"><h4>PCBs &amp; Electronic Components</h4><p>Printed circuit boards, power supply units, and logic boards to OEM spec.</p></div></div>
+      </div>
+
+      <div class="ph-availability">
+        <h5>Filter by Manufacturer</h5>
+        <div class="pills" id="mfg-pills"></div>
+      </div>
+
+      <div class="ph-catalog" id="ph-catalog">
+        <div class="ph-cat-hdr">
+          <div class="left"><div class="lbl">OEM Parts Catalog</div><h3>Cabinet Parts</h3></div>
+          <div class="right" id="result-count">Select a manufacturer to view parts</div>
+        </div>
+        <div class="ph-cat-filter">
+          <label for="mfg-select">Manufacturer</label>
+          <select class="ph-cat-select" id="mfg-select">
+            <option value="">— Select Manufacturer —</option>
+          </select>
+          <div class="ph-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="part-search" placeholder="Search parts or SKUs..." />
+          </div>
+        </div>
+        <div class="ph-cab-info" id="cab-info"></div>
+        <div class="ph-chips" id="cat-chips"></div>
+        <div class="ph-cat-empty" id="cat-empty"><span class="gear">⚙️</span>Select a manufacturer above to browse cabinet parts</div>
+        <div class="ph-results hidden" id="cat-results"></div>
+        <div class="ph-data-note">Parts catalog sourced from the rakeshr2.github.io reference site. 8 manufacturers · 22 cabinets · 101 parts.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider on-dark"><div class="container"><div class="num">06</div><div class="meta"><div class="lbl">Section 06</div><div class="title">Get in Touch</div></div><div class="accent-line"></div></div></div>
+<section class="block contact" id="contact">
+  <div class="container">
+    <div class="block-head reveal" style="margin-bottom:50px;">
+      <span class="block-eyebrow">Get in Touch</span>
+      <h2>Let's talk about <span class="em">your project.</span></h2>
+      <p>Sales, parts, technical support, or a full equipment refresh — reach out and the right specialist from our team will be in touch.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-cards reveal-stagger">
+        <div class="contact-card"><div class="clbl">Visit Us</div><div class="cval">2406 Industrial St.<br/>Burlington, ON L7P 1A5</div></div>
+        <div class="contact-card"><div class="clbl">Call Us</div><div class="cval"><a href="tel:9059013108">+1 (905) 901-3108</a></div></div>
+        <div class="contact-card"><div class="clbl">Email Us</div><div class="cval"><a href="mailto:info@r2gaming.com">info@r2gaming.com</a><br/><span style="font-size:12px;color:rgba(255,255,255,0.65)">Parts: <a href="mailto:sales@r2gaming.com">sales@r2gaming.com</a></span></div></div>
+        <div class="contact-card"><div class="clbl">Business Hours</div><div class="cval">Mon — Fri · 8:00 AM — 5:00 PM<br/>Sat &amp; Sun · Closed</div></div>
+      </div>
+      <div class="contact-form reveal">
+        <h3>Send us a message</h3>
+        <div class="cf-row">
+          <div class="cf-field"><label>Your Name</label><input type="text" placeholder="Full name" /></div>
+          <div class="cf-field"><label>Your Email</label><input type="email" placeholder="you@company.ca" /></div>
+        </div>
+        <div class="cf-row"><div class="cf-field full"><label>Select a Service</label><select><option>— Choose one —</option><option>Sales</option><option>Products</option><option>Parts</option><option>Technical Services</option><option>General Inquiry</option></select></div></div>
+        <div class="cf-row"><div class="cf-field full"><label>Your Message</label><textarea placeholder="Tell us what you need..."></textarea></div></div>
+        <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <img src="https://www.r2gaming.com/wp-content/uploads/2022/09/R2-logo-100.png" alt="R2 Gaming" />
+          <span class="logo-sep"></span>
+          <span class="logo-tag"><strong>Est. 2005</strong>Canada</span>
+        </a>
+        <p>Established in 2005, R2 is a full-service gaming company with operations and relations covering every Canadian province.</p>
+        <div class="footer-contact"><strong>2406 Industrial St.</strong><br/>Burlington, ON L7P 1A5<br/><strong>(905) 901-3108</strong><br/>info@r2gaming.com<br/>sales@r2gaming.com</div>
+      </div>
+      <div class="footer-col"><h5>Products</h5><ul><li><a href="#products">Slot Machines</a></li><li><a href="#products">Electronic Table Games</a></li><li><a href="#products">Internet Gaming</a></li><li><a href="#products">Cash Processing</a></li><li><a href="#products">Peripherals</a></li><li><a href="#products">Performance Seating</a></li><li><a href="#products">Signage</a></li><li><a href="#products">Marketing</a></li></ul></div>
+      <div class="footer-col"><h5>Parts Hub</h5><ul><li><a href="#parts">Bill Validators</a></li><li><a href="#parts">Ticket Printers</a></li><li><a href="#parts">Monitors &amp; PSU</a></li><li><a href="#parts">PCBs &amp; Electronics</a></li><li><a href="#parts">Cabinet Catalog</a></li><li><a href="https://www.r2gaming.com/wp-content/uploads/2022/10/R2-Gaming-Flyer.pdf" target="_blank">Parts Flyer (PDF)</a></li></ul></div>
+      <div class="footer-col"><h5>R2 Group</h5><ul><li><a href="/r2-gaming">R2 Gaming</a></li><li><a href="https://lvibc.com" target="_blank">LVI</a></li><li><a href="/r2-technology-solutions">R2 Technology Solutions</a></li><li><a href="/on-the-ground">On the Ground</a></li><li><a href="/social-responsibility">Social Responsibility</a></li><li><a href="/careers">Careers</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul><li><a href="#contact">Contact Us</a></li><li><a href="mailto:info@r2gaming.com">info@r2gaming.com</a></li><li><a href="mailto:sales@r2gaming.com">sales@r2gaming.com</a></li><li><a href="https://www.linkedin.com/company/r2gaming/" target="_blank">LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 R2 Gaming. All rights reserved.</span><div class="legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Responsible Gambling</a></div></div>
+  </div>
+</footer>
+
+<button class="ph-cart-fab" id="cart-fab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Parts Cart <span class="badge" id="cart-count">0</span></button>
+
+<div class="ph-cart-overlay" id="cart-overlay"></div>
+<aside class="ph-cart-drawer" id="cart-drawer">
+  <div class="ph-cart-head">
+    <h3>Your Parts <span>Cart</span></h3>
+    <button class="close" id="cart-close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="ph-cart-list" id="cart-list"></div>
+  <div class="ph-cart-foot">
+    <div class="total">Items in cart: <strong id="cart-total">0</strong></div>
+    <div class="actions">
+      <button class="clear-btn" id="cart-clear">Clear All</button>
+      <button class="submit-btn" id="cart-submit">Submit Cart for Quote</button>
+    </div>
+  </div>
+</aside>
+
+<div class="ph-modal-overlay" id="submit-modal">
+  <div class="ph-modal">
+    <div id="modal-form-view">
+      <div class="ph-modal-head">
+        <div><h3>Submit Parts Cart for Quote</h3><p>Sent to R2 Gaming sales — we respond within one business day.</p></div>
+        <button class="close" id="modal-close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div class="ph-modal-body">
+        <div class="ph-modal-summary" id="modal-summary"></div>
+        <form class="ph-modal-form" id="modal-form" onsubmit="event.preventDefault(); submitRequest();">
+          <div class="row"><div class="field"><label>Company *</label><input type="text" id="f-company" required /></div><div class="field"><label>Contact Name *</label><input type="text" id="f-name" required /></div></div>
+          <div class="row"><div class="field"><label>Email *</label><input type="email" id="f-email" required /></div><div class="field"><label>Phone</label><input type="tel" id="f-phone" /></div></div>
+          <div class="row"><div class="field full"><label>Notes</label><textarea id="f-notes" placeholder="Cabinet model, urgency, anything else..."></textarea></div></div>
+        </form>
+      </div>
+      <div class="ph-modal-foot">
+        <span class="note">→ sales@r2gaming.com</span>
+        <button class="send-btn" onclick="submitRequest()">Send Request</button>
+      </div>
+    </div>
+    <div class="ph-success" id="modal-success-view">
+      <div class="check"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h3>Cart Submitted!</h3>
+      <p>Your parts cart has been submitted. A sales rep will respond with a quote within one business day.</p>
+      <div class="ref" id="success-ref"></div>
+      <div><button class="btn btn-outline" onclick="closeSubmitModal(); clearCart();">Start New Cart</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="ph-toast" id="toast"><span class="dot"></span><span id="toast-msg">Added to Cart</span></div>
+
+<script>
+window.addEventListener('error', function (e) {
+  var b = document.getElementById('js-error-banner');
+  if (b) { b.textContent = 'JS error: ' + (e.message || '?'); b.classList.add('show'); }
+  console.error('[Parts Hub] error:', e);
+});
+
+var MANUFACTURERS = {
+  'Aristocrat': { label: 'Aristocrat', cabs: {
+    'ARC': [
+      { part: 'Main Backplane Board', pn: 'BPLN229', detail: 'Gen8 platform; fits ARC, Helix, and Flame.' },
+      { part: '13" Interactive LCD Button Deck', pn: 'GFA04313-003-02', detail: 'Often called the "iDeck" or dynamic button panel.' },
+      { part: 'LCD Button Unit (Single)', pn: 'BTN220', detail: 'Individual replacement unit for the button deck.' },
+      { part: 'Power Supply (Setec 400W)', pn: '433150', detail: 'Standard Gen8 power supply.' },
+      { part: 'Graphics Card (GT430)', pn: '494077-02-GT430', detail: 'Standard for many ARC configurations.' }
+    ],
+    'HELIX XT': [
+      { part: 'Main Power Supply', pn: '433150 (Setec)', detail: '400W Gen8 Standard.' },
+      { part: 'Video Card (GT630)', pn: '439103', detail: 'Used in Helix/Helix XT CPU assemblies.' },
+      { part: 'Backplane Board', pn: 'BPLN229', detail: 'Standard Gen8 Backplane.' },
+      { part: 'TCON Relay Board', pn: 'TCON143', detail: 'Specific for Helix XT / Mars X button decks.' },
+      { part: 'AD Board', pn: '029-KTC430DPA06-ADBD', detail: 'For Kortek 43" XT-P displays.' }
+    ],
+    'HELIX PLUS': [
+      { part: '27" LCD Monitor (Main/Top)', pn: 'KTK270DPA02', detail: 'Kortek 27-inch P-CAP monitor.' },
+      { part: '27" Touch Sensor', pn: 'TM27HETMD', detail: '27" Projective Capacitive (P-CAP) sensor.' },
+      { part: 'AD Board', pn: '10-31090002H', detail: 'WSXGA+ Lotus AD Board (Standard for Gen8).' },
+      { part: 'LCD Inverter', pn: '10-411300023', detail: 'Kortek GH321A (Common for secondary power).' }
+    ]
+  }},
+  'Bally': { label: 'Bally', cabs: {
+    'Wave': [
+      { part: '40" Curved Monitor (Complete)', pn: '238549-00001 / 217392', detail: 'Often model L4045S3HBY or Tovis equivalent.' },
+      { part: 'Monitor AD Board', pn: '223233-ADBD', detail: 'Interface board specifically for the curved panel.' },
+      { part: '40" P-CAP Touch Sensor', pn: '98-1100-0217-1', detail: 'High-sensitivity sensor for the curved glass.' },
+      { part: 'Touch Controller', pn: '13-0010-00', detail: '3M MicroTouch Serial/USB controller.' }
+    ],
+    'S9E': [
+      { part: 'Main CPU (Alpha 1)', pn: '127365732819 / CPU129', detail: 'Standard S9E/S9000 CPU board.' },
+      { part: 'Backplane Board', pn: 'PCA212344', detail: 'Signal/Communication backplane.' },
+      { part: 'Power Supply (24V)', pn: 'PSUP148 / 212385', detail: 'Supplies power for the reels and CPU.' },
+      { part: 'Power Supply (5V/12V)', pn: '211028', detail: 'Secondary power for lighting and logic.' },
+      { part: 'Communication Board', pn: 'PCA212261', detail: 'For SAS/Player Tracking interface.' }
+    ],
+    'Alpha': [
+      { part: 'Alpha 1 MPU (CPU-1)', pn: '127365 / CPU129', detail: 'Standard for Alpha 1 Steppers/Video.' },
+      { part: 'Backplane (Signal)', pn: 'PCA212344-0-0', detail: 'Main communication board.' },
+      { part: 'Backplane (Power)', pn: 'PCA212319-0-0', detail: 'Distribution board for cabinet power.' },
+      { part: 'Main Power Supply', pn: '212385 / PSUP148', detail: '400W universal Alpha supply.' }
+    ],
+    'Alpha 2 V22/22': [
+      { part: 'Alpha 2 CPU (Complete)', pn: '264001 / 226458', detail: 'Complete MPU assembly with 1GB or 2GB RAM.' },
+      { part: 'Alpha 2 Backplane', pn: 'PCA210908-0-0', detail: 'The main board that the CPU slides into.' },
+      { part: 'Video Topper Driver', pn: 'PCA212710-0-0', detail: 'Board for managing the external video topper.' },
+      { part: 'Main Power Supply', pn: '212385 / TMG-Z720-B', detail: '720W supply (Output: 5V, 12V, 24V).' },
+      { part: 'Video Card (MXM)', pn: 'AMD E6760', detail: 'High-performance card for Alpha 2 games.' }
+    ],
+    'S9000': [
+      { part: 'Alpha 1 MPU Board', pn: '127365 / 208865', detail: 'Standard CPU board (may require 512MB RAM).' },
+      { part: 'Backplane Board', pn: 'PCA212344', detail: 'Main signal hub for the Alpha 1 system.' },
+      { part: 'Power Supply (5V/12V)', pn: '211028', detail: 'Powers the logic and low-voltage lights.' },
+      { part: 'Power Supply (24V)', pn: '212385 / PSUP148', detail: 'Powers the reel motors and iDeck.' },
+      { part: 'Sound Amplifier Board', pn: 'PCA211832', detail: 'Located near the speakers; controls volume/output.' }
+    ]
+  }},
+  'IGT': { label: 'IGT', cabs: {
+    'S2000': [
+      { part: 'Main MPU Board (502)', pn: '19630595', detail: 'The most common "Non-Enhanced" board.' },
+      { part: 'Main MPU Board (504)', pn: '19630596', detail: 'Standard board with legacy support.' },
+      { part: 'Enhanced MPU (960)', pn: '19631244', detail: 'Requires a "Legacy Adapter" for older games.' },
+      { part: 'Backplane Board', pn: '19630594', detail: 'The fixed board the MPU slides into.' },
+      { part: 'I/O Card (Door/Cabinet)', pn: '14930161', detail: 'Manages buttons and switches.' }
+    ],
+    'G20': [
+      { part: 'AVP 3.0 CPU (Brain Box)', pn: '50062001W / 102-G0193', detail: 'Often marked with a Green sticker.' },
+      { part: 'Backplane Board', pn: '75832300W / 75832000W', detail: 'The main signal interface board.' },
+      { part: 'Cabinet Controller PCB', pn: '75832302W', detail: 'Formerly 75831530W.' },
+      { part: 'Main Power Supply', pn: '758310XX', detail: 'Standard AVP 2.5/3.0 power unit.' },
+      { part: 'Top Box LCD Power Supply', pn: '400-121-00', detail: '150W dedicated supply for the upper monitor.' }
+    ],
+    'SAVP': [
+      { part: 'AVP 3.0 CPU (Brain Box)', pn: '50062001W / 50062100W', detail: 'Standard AVP 3.0 processing unit.' },
+      { part: 'S-AVP Backplane Board', pn: '75831401W / 91161001', detail: 'Specific to the S-AVP/Stepper configuration.' },
+      { part: 'Video Card (AVP 3.0)', pn: '75608090W', detail: 'Drives the digital displays/bonus screens.' },
+      { part: 'Main Power Supply', pn: '40012003W / YM-2441D', detail: '440W genuine IGT/Setec supply.' },
+      { part: 'AC Line Filter', pn: '50062200', detail: '120V/240V internal power filter.' }
+    ]
+  }},
+  'Konami': { label: 'Konami', cabs: {
+    'KV2': [
+      { part: 'K2V Main MPU Board', pn: '230278 / 350100', detail: 'The primary "Logic" board.' },
+      { part: 'Backplane Board', pn: '350105', detail: 'The communication hub for the MPU.' },
+      { part: 'Power Supply (Main)', pn: '06-20098 / 350410', detail: 'Standard 300W/400W dual-output unit.' },
+      { part: 'IO Board', pn: '350110', detail: 'Manages button inputs and cabinet signals.' },
+      { part: 'Graphics Card (AGP/PCIe)', pn: '350100-GR', detail: 'Varies by game complexity.' }
+    ],
+    'Podium': [
+      { part: 'KP3 CPU Board (MPU)', pn: '310436', detail: 'Complete assembly; drop-in replacement.' },
+      { part: 'Backplane Board', pn: '530307 (GGFK3)', detail: 'The "Motherboard" the CPU slides into.' },
+      { part: 'Video Card (MXM 2.0)', pn: '109-B34133-10', detail: 'Radeon E2400 or E6760 (MXM style card).' },
+      { part: 'CPU Cooling Fan', pn: 'R127010BU', detail: 'Square 70mm x 10mm 3-wire fan.' },
+      { part: 'Main Power Supply', pn: '310287-U-C', detail: 'TDK-Lambda 400W (GETT PN: PSUP172).' }
+    ],
+    'Concerto': [
+      { part: 'Main KP3.5 CPU (MPU)', pn: '310859A / 310667', detail: 'Standard Concerto "Brain Box."' },
+      { part: 'Video Card (MXM-II)', pn: '310669D (E8860)', detail: 'High-definition card with "D001" sticker.' },
+      { part: 'Video Card Fan', pn: '530640A / GA51B2U', detail: 'Apistek GPU cooling fan for E8860.' },
+      { part: 'Main Power Supply', pn: '192690 / 310610D', detail: 'Standard for Concerto/Crescent cabinets.' },
+      { part: 'Backplane Board', pn: '530307 (GGFK3)', detail: 'Standard interface (shared with some late KP3).' }
+    ]
+  }},
+  'WMS': { label: 'WMS', cabs: {
+    'Blade': [
+      { part: 'NXT 3.2 MPU (CPU-3.2)', pn: '235122 / 212555', detail: 'Standard for early Blade titles.' },
+      { part: 'NXT 3.3 MPU (CPU-3.3)', pn: '245661', detail: 'Upgraded for high-res graphics.' },
+      { part: 'Backplane Board', pn: '225110-01', detail: 'Signal hub for the NXT platform.' },
+      { part: 'Main Power Supply', pn: '223120 / PSUP175', detail: '400W-600W Multi-output unit.' },
+      { part: 'I/O Board (Upper)', pn: '225114-01', detail: 'Manages lighting and cabinet signals.' }
+    ],
+    'BB2': [
+      { part: 'NXT2 MPU Board', pn: '212555 / 222555', detail: 'The "Brain Box" for BB2.' },
+      { part: 'Backplane Board', pn: '212110-01', detail: 'Signal hub located behind the MPU.' },
+      { part: 'Main Power Supply', pn: '211120 / 223120', detail: '400W Delta or WMS-specific unit.' },
+      { part: 'I/O Board', pn: '212114-01', detail: 'Controls button inputs and cabinet lights.' },
+      { part: 'Comm Board', pn: '212116-01', detail: 'Handles SAS and player tracking signals.' }
+    ],
+    'Blade Slant': [
+      { part: 'NXT 3.2 CPU Board', pn: '235122 / CPU-NXT3.2', detail: 'Standard MPU for Blade Slant.' },
+      { part: 'NXT 3.5 MPU Board', pn: 'CPU-NXT-3-5', detail: 'High-performance upgrade.' },
+      { part: 'Main Power Supply', pn: 'ARP-9016-05 / UNI-750', detail: '450W-750W Aras unit (shared with BB2).' },
+      { part: 'Backplane Board', pn: '225110-01', detail: 'Signal interface for NXT 3 platforms.' },
+      { part: 'Video Card (MXM)', pn: 'CT-MXM-I / 6901-019061', detail: 'High-definition graphics card.' }
+    ],
+    'Blade DX': [
+      { part: 'NXT 3.2 MPU (CPU Board)', pn: 'A-029206-00-00', detail: 'Standard "Brain Box" for Blade DX.' },
+      { part: 'NXT 3.2 Video Card', pn: 'E4690 / 6901-019061', detail: 'Radeon-based MXM card.' },
+      { part: 'NXT 3.3 Video Card', pn: 'E6760', detail: 'High-performance upgrade for DX titles.' },
+      { part: 'Main Power Supply (750W)', pn: 'DPS-750AB-6A / 6765-1426591', detail: 'Multi-output, Blue Label (Blade/BB3).' },
+      { part: 'Backplane Board', pn: '225110-01', detail: 'Main interface for the NXT 3 series.' }
+    ]
+  }},
+  'Ainsworth': { label: 'Ainsworth', cabs: {
+    'A560': [
+      { part: 'Main MPU Assembly', pn: '030170 / 117-AINSWORTH-A560', detail: 'Complete assembly with Brain Box.' },
+      { part: 'Backplane Board', pn: '220-351-R / 117-220-351', detail: 'The communication hub for the MPU.' },
+      { part: 'Power Control Board (PCB)', pn: '200739-01-A', detail: 'Manages power distribution to components.' },
+      { part: 'Main Power Supply', pn: 'APSM-460 / 220 279', detail: '460W (Output: +12V, +24V, +5VSB).' },
+      { part: 'Video Splitter Board', pn: '220-320', detail: 'Distributes signal to dual monitor setups.' }
+    ]
+  }},
+  'AGS': { label: 'AGS', cabs: {
+    'ICON': [
+      { part: 'Main MPU Logic Board', pn: 'C020788 / 77215-1', detail: 'Shared with AGS Orion Portrait.' },
+      { part: 'CPU Assembly (Complete)', pn: '00032D34F7D2', detail: 'Standard refurbished CPU unit.' },
+      { part: 'Power Supply (120V/230V)', pn: 'PSUP233 / gp305b-120-250', detail: 'High-quality APD power brick kit.' },
+      { part: 'Backplane Board', pn: 'C021045', detail: 'Main interface for the Icon platform.' }
+    ]
+  }},
+  'Aruze': { label: 'Aruze', cabs: {
+    'GENEX': [
+      { part: 'Main MPU Board', pn: 'GENEX-MPU-200', detail: 'The primary logic board for Genex titles.' },
+      { part: 'Backplane Board', pn: 'BPL-GNX-01', detail: 'Main communication interface.' },
+      { part: 'Power Supply (Main)', pn: '400-121-00 / PSUP154', detail: 'Often a 300W-400W universal unit.' },
+      { part: 'I/O Board', pn: 'IO-GNX-V1', detail: 'Manages button inputs and lighting.' },
+      { part: 'Video Splitter Board', pn: 'VSB-GNX-02', detail: 'Distributes signals to dual monitors.' }
+    ]
+  }}
+};
+
+var activeMfg = '', activeCab = 'all', activeSearch = '';
+var cart = [];
+var STORAGE_KEY = 'r2-parts-cart-v3';
+
+function $(id) { return document.getElementById(id); }
+function loadCart() { try { var r = localStorage.getItem(STORAGE_KEY); if (r) cart = JSON.parse(r) || []; } catch (e) { cart = []; } }
+function saveCart() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } catch (e) {} }
+
+function getMfgCabs(mfg) { return MANUFACTURERS[mfg] ? Object.keys(MANUFACTURERS[mfg].cabs) : []; }
+function getMfgPartCount(mfg) {
+  if (!MANUFACTURERS[mfg]) return 0;
+  var n = 0; var c = MANUFACTURERS[mfg].cabs;
+  Object.keys(c).forEach(function (k) { n += c[k].length; });
+  return n;
+}
+function getAllParts(mfg) {
+  if (!MANUFACTURERS[mfg]) return [];
+  var out = []; var c = MANUFACTURERS[mfg].cabs;
+  Object.keys(c).forEach(function (cab) {
+    c[cab].forEach(function (p) { out.push({ part: p.part, pn: p.pn, detail: p.detail, cab: cab }); });
+  });
+  return out;
+}
+
+function renderChips() {
+  var box = $('cat-chips');
+  if (!box) return;
+  box.innerHTML = '';
+  if (!ac
