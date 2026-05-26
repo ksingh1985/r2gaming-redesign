@@ -289,6 +289,31 @@
   .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
   .product-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; cursor: pointer; transition: all 0.3s var(--ease); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
   .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--brand-soft); }
+  .product-card.active { border-color: var(--brand); box-shadow: 0 0 0 2px var(--brand), var(--shadow-lg); }
+  .product-card .card-cue { display: inline-block; margin-top: 10px; font-size: 12px; color: var(--brand); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  /* Drill-down panel */
+  .cat-panel { display: none; margin-top: 36px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; box-shadow: var(--shadow-sm); animation: catFadeIn 0.35s var(--ease); }
+  .cat-panel.open { display: block; }
+  @keyframes catFadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+  .cat-panel-head { display: flex; align-items: center; gap: 20px; padding-bottom: 18px; margin-bottom: 22px; border-bottom: 1px solid var(--border); }
+  .cat-back { background: transparent; border: 1px solid var(--border); border-radius: 999px; padding: 7px 16px; font-size: 12px; font-weight: 600; color: var(--text); cursor: pointer; transition: all 0.2s var(--ease); }
+  .cat-back:hover { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .cat-panel-head h3 { font-size: 22px; font-weight: 800; color: var(--ink); text-transform: uppercase; letter-spacing: 0.02em; margin: 0; }
+  .cat-brands { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+  .cat-brand-tab { background: transparent; border: 1px solid var(--border); border-radius: 999px; padding: 10px 22px; font-size: 14px; font-weight: 600; color: var(--text); cursor: pointer; transition: all 0.2s var(--ease); }
+  .cat-brand-tab:hover { border-color: var(--brand-soft); color: var(--brand); }
+  .cat-brand-tab.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .cat-products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .cat-prod { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.25s var(--ease); }
+  .cat-prod:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--brand-soft); }
+  .cat-prod-photo { aspect-ratio: 1 / 1; background: #f6f6f7; background-size: contain; background-position: center; background-repeat: no-repeat; }
+  .cat-prod-body { padding: 14px 14px 16px; }
+  .cat-prod-body h5 { font-size: 14px; font-weight: 700; color: var(--ink); margin: 0 0 4px; line-height: 1.3; }
+  .cat-prod-body .oem { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+  .cat-empty { display: none; text-align: center; padding: 30px 20px; }
+  .cat-empty p { color: var(--text); margin-bottom: 18px; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .cat-panel.empty .cat-brands, .cat-panel.empty .cat-products { display: none; }
+  .cat-panel.empty .cat-empty { display: block; }
   .product-photo { height: 170px; background-size: cover; background-position: center; position: relative; transition: transform 0.6s var(--ease); }
   .product-card:hover .product-photo { transform: scale(1.06); }
   .product-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(15,19,32,0.55) 100%); }
@@ -577,6 +602,9 @@
     .stat-item:last-child { border-bottom: 0; }
     .stat-num { font-size: 38px; min-height: 42px; }
     .tiles-grid, .products-grid, .ph-cards, .footer-grid { grid-template-columns: 1fr; }
+    .cat-products { grid-template-columns: repeat(2, 1fr); }
+    .cat-panel { padding: 22px 18px; }
+    .cat-panel-head h3 { font-size: 18px; }
     .brand-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .brand-tile { height: 130px; padding: 24px 18px; }
     .brand-tile img { max-height: 70px; }
@@ -854,15 +882,27 @@
       <p>Nine product categories carried directly from the OEMs we represent in Canada.</p>
     </div>
     <div class="products-grid reveal-stagger">
-      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/slot-machine-service-provider-scaled.jpg')"></div><div class="product-body"><h3>Slot Machines</h3><p>Reel, video, and progressive cabinets from the OEMs we represent.</p></div></div>
-      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2021/09/Mission-Poker2.jpg')"></div><div class="product-body"><h3>Electronic Table Games</h3><p>Multi-station ETG solutions for table games from R2 Gaming's brand portfolio.</p></div></div>
-      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/11/Internet-Gaming_Background-300x200.png')"></div><div class="product-body"><h3>Internet Gaming &amp; Sports Betting</h3><p>iGaming and sports betting offerings for operators under provincial frameworks.</p></div></div>
-      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/cash-handling.jpg')"></div><div class="product-body"><h3>Cash Processing</h3><p>JCM Global bill validators, ticket printers, recyclers. CountR cash management.</p></div></div>
-      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/Peripherals-Systems.jpg')"></div><div class="product-body"><h3>Peripherals &amp; Systems</h3><p>Kiosks, player tracking, jackpot management, and supporting peripherals.</p></div></div>
-      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2024/09/Gary-Platt-Casino-Performance-Chairs-R2-Gaming.jpg')"></div><div class="product-body"><h3>Casino Performance Seating</h3><p>Patir casino seating — represented by R2 Gaming for the Canadian market.</p></div></div>
-      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2024/09/Signage.jpg')"></div><div class="product-body"><h3>Signage</h3><p>Signage and large-format displays for casino, lottery, and bingo environments.</p></div></div>
-      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/marketing-solutiong.jpg')"></div><div class="product-body"><h3>Marketing Solutions</h3><p>Marketing solutions for casino, lottery, and bingo operators across Canada.</p></div></div>
-      <div class="product-card"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/08/bg-casino-gaming-products-services.jpg')"></div><div class="product-body"><h3>Parts</h3><p>Bill validators, ticket printers, monitors, power supplies, PCBs, consumables.</p></div></div>
+      <div class="product-card" data-cat="slots"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/slot-machine-service-provider-scaled.jpg')"></div><div class="product-body"><h3>Slot Machines</h3><p>Reel, video, and progressive cabinets from the OEMs we represent.</p><span class="card-cue">Explore lineup →</span></div></div>
+      <div class="product-card" data-cat="etg"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2021/09/Mission-Poker2.jpg')"></div><div class="product-body"><h3>Electronic Table Games</h3><p>Multi-station ETG solutions for table games from R2 Gaming's brand portfolio.</p><span class="card-cue">Explore lineup →</span></div></div>
+      <div class="product-card" data-cat="igaming"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/11/Internet-Gaming_Background-300x200.png')"></div><div class="product-body"><h3>Internet Gaming &amp; Sports Betting</h3><p>iGaming and sports betting offerings for operators under provincial frameworks.</p><span class="card-cue">Talk to us →</span></div></div>
+      <div class="product-card" data-cat="cash"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/cash-handling.jpg')"></div><div class="product-body"><h3>Cash Processing</h3><p>JCM Global bill validators, ticket printers, recyclers. CountR cash management.</p><span class="card-cue">Explore lineup →</span></div></div>
+      <div class="product-card" data-cat="peripherals"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/Peripherals-Systems.jpg')"></div><div class="product-body"><h3>Peripherals &amp; Systems</h3><p>Kiosks, player tracking, jackpot management, and supporting peripherals.</p><span class="card-cue">Explore lineup →</span></div></div>
+      <div class="product-card" data-cat="seating"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2024/09/Gary-Platt-Casino-Performance-Chairs-R2-Gaming.jpg')"></div><div class="product-body"><h3>Casino Performance Seating</h3><p>Patir casino seating — represented by R2 Gaming for the Canadian market.</p><span class="card-cue">Talk to us →</span></div></div>
+      <div class="product-card" data-cat="signage"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2024/09/Signage.jpg')"></div><div class="product-body"><h3>Signage</h3><p>Signage and large-format displays for casino, lottery, and bingo environments.</p><span class="card-cue">Talk to us →</span></div></div>
+      <div class="product-card" data-cat="marketing"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/06/marketing-solutiong.jpg')"></div><div class="product-body"><h3>Marketing Solutions</h3><p>Marketing solutions for casino, lottery, and bingo operators across Canada.</p><span class="card-cue">Talk to us →</span></div></div>
+      <div class="product-card" data-cat="parts-link"><div class="product-photo" style="background-image:url('https://www.r2gaming.com/wp-content/uploads/2022/08/bg-casino-gaming-products-services.jpg')"></div><div class="product-body"><h3>Parts</h3><p>Bill validators, ticket printers, monitors, power supplies, PCBs, consumables.</p><span class="card-cue">Go to Parts Hub →</span></div></div>
+    </div>
+    <div class="cat-panel" id="cat-panel">
+      <div class="cat-panel-head">
+        <button class="cat-back" id="cat-back">← Back</button>
+        <h3 id="cat-title">Category</h3>
+      </div>
+      <div class="cat-brands" id="cat-brands"></div>
+      <div class="cat-products" id="cat-products"></div>
+      <div class="cat-empty" id="cat-empty">
+        <p>Catalog details for this category are available on request — our team will walk you through current options and pricing.</p>
+        <a class="btn btn-primary" href="#contact">Talk to our team</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1440,6 +1480,82 @@ function submitRequest() {
 function openMobile() { $('mobile-overlay').classList.add('open'); $('mobile-drawer').classList.add('open'); $('hamburger').classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeMobile() { $('mobile-overlay').classList.remove('open'); $('mobile-drawer').classList.remove('open'); $('hamburger').classList.remove('open'); document.body.style.overflow = ''; }
 
+// === PRODUCT CATEGORY DRILL-DOWN ===
+var PROD_DETAILS = {
+  'genesis-atmos':     { title: 'Genesis Atmos',                oem: 'Sega Sammy', img: 'https://rakeshr2.github.io/R2-Gaming-Website/genesisatmos.png' },
+  'genesis-crest':     { title: 'Genesis Crest',                oem: 'Sega Sammy', img: 'https://rakeshr2.github.io/R2-Gaming-Website/Genesiscrest.jpg' },
+  'panthera-curve':    { title: 'PANTHERA Curve 1.43',          oem: 'Novomatic',  img: 'https://rakeshr2.github.io/R2-Gaming-Website/Pantheracurve1.43.jpg' },
+  'panthera-vip':      { title: 'Panthera V.I.P. Lounge Curve', oem: 'Novomatic',  img: 'https://rakeshr2.github.io/R2-Gaming-Website/PantheraVIPLoungeCurve.jpg' },
+  'vip-royal':         { title: 'V.I.P. Royal',                 oem: 'Novomatic',  img: 'https://rakeshr2.github.io/R2-Gaming-Website/VIPRoyal.jpg' },
+  'diamond-155j':      { title: 'DIAMOND X 1.55J',              oem: 'Novomatic',  img: 'https://rakeshr2.github.io/R2-Gaming-Website/novomaticdiamond1.5j.jpg' },
+  'diamond-232':       { title: 'DIAMOND X 2.32',               oem: 'Novomatic',  img: 'https://rakeshr2.github.io/R2-Gaming-Website/novomaticdiamond2.32.jpg' },
+  'lotus-genius-8':    { title: 'LOTUS ROULETTE Genius 8',      oem: 'Novomatic',  img: 'https://rakeshr2.github.io/R2-Gaming-Website/LOTUSROULETTEGenius8.png' },
+  'lotus-genius':      { title: 'LOTUS ROULETTE Genius',        oem: 'Novomatic',  img: 'https://rakeshr2.github.io/R2-Gaming-Website/LOTUSROULETTGenius.png' },
+  'ivizion':           { title: 'IVIZION Bill Validator',       oem: 'JCM Global', img: 'https://rakeshr2.github.io/R2-Gaming-Website/iVIZION.jpg' },
+  'gen5-printer':      { title: 'GEN5 Thermal Printer',         oem: 'JCM Global', img: 'https://rakeshr2.github.io/R2-Gaming-Website/GEN5.png' },
+  'fuzion':            { title: 'FUZION Technology',            oem: 'JCM Global', img: 'https://rakeshr2.github.io/R2-Gaming-Website/FUZION.jpg' },
+  'bluewave':          { title: 'BlueWaveDX',                   oem: 'JCM Global', img: 'https://rakeshr2.github.io/R2-Gaming-Website/bluewavedx.jpg' },
+  'couponxpress':      { title: 'CouponXpress Printer',         oem: 'JCM Global', img: 'https://rakeshr2.github.io/R2-Gaming-Website/CouponXpress%20(2).png' },
+  'cashbox':           { title: 'Intelligent Cash Box',         oem: 'JCM Global', img: 'https://rakeshr2.github.io/R2-Gaming-Website/ICB%203.png' }
+};
+var CATEGORY_PRODUCTS = {
+  'slots':       { title: 'Slot Machines',                    items: ['genesis-atmos','genesis-crest','panthera-curve','panthera-vip','vip-royal','diamond-155j','diamond-232'] },
+  'etg':         { title: 'Electronic Table Games',           items: ['lotus-genius-8','lotus-genius'] },
+  'cash':        { title: 'Cash Processing',                  items: ['ivizion','gen5-printer','fuzion','cashbox'] },
+  'peripherals': { title: 'Peripherals & Systems',            items: ['bluewave','couponxpress'] },
+  'igaming':     { title: 'Internet Gaming & Sports Betting', items: [] },
+  'seating':     { title: 'Casino Performance Seating',       items: [] },
+  'signage':     { title: 'Signage',                          items: [] },
+  'marketing':   { title: 'Marketing Solutions',              items: [] }
+};
+var activeCategory = '', activeCatBrand = '';
+function openCategory(catKey) {
+  if (catKey === 'parts-link') { var p = document.getElementById('parts'); if (p) p.scrollIntoView({behavior:'smooth',block:'start'}); return; }
+  var cat = CATEGORY_PRODUCTS[catKey]; if (!cat) return;
+  activeCategory = catKey;
+  document.querySelectorAll('.product-card').forEach(function (c) { c.classList.toggle('active', c.getAttribute('data-cat') === catKey); });
+  var panel = $('cat-panel'); var title = $('cat-title');
+  if (title) title.textContent = cat.title;
+  if (cat.items.length === 0) { panel.classList.add('open','empty'); }
+  else {
+    panel.classList.add('open'); panel.classList.remove('empty');
+    var brands = [];
+    cat.items.forEach(function (slug) { var d = PROD_DETAILS[slug]; if (d && brands.indexOf(d.oem) === -1) brands.push(d.oem); });
+    activeCatBrand = brands[0] || '';
+    renderCatBrands(brands); renderCatProducts();
+  }
+  setTimeout(function () { panel.scrollIntoView({behavior:'smooth',block:'start'}); }, 60);
+}
+function renderCatBrands(brands) {
+  var box = $('cat-brands'); if (!box) return;
+  box.innerHTML = '';
+  brands.forEach(function (b) {
+    var tab = document.createElement('button');
+    tab.className = 'cat-brand-tab' + (b === activeCatBrand ? ' active' : '');
+    tab.textContent = b;
+    tab.addEventListener('click', function () { activeCatBrand = b; renderCatBrands(brands); renderCatProducts(); });
+    box.appendChild(tab);
+  });
+}
+function renderCatProducts() {
+  var box = $('cat-products'); if (!box) return;
+  box.innerHTML = '';
+  var cat = CATEGORY_PRODUCTS[activeCategory]; if (!cat) return;
+  cat.items.forEach(function (slug) {
+    var d = PROD_DETAILS[slug]; if (!d) return;
+    if (activeCatBrand && d.oem !== activeCatBrand) return;
+    var card = document.createElement('div');
+    card.className = 'cat-prod';
+    card.innerHTML = '<div class="cat-prod-photo" style="background-image:url(\'' + d.img + '\')"></div><div class="cat-prod-body"><h5>' + d.title + '</h5><div class="oem">' + d.oem + '</div></div>';
+    box.appendChild(card);
+  });
+}
+function closeCategory() {
+  var panel = $('cat-panel'); if (panel) panel.classList.remove('open','empty');
+  document.querySelectorAll('.product-card').forEach(function (c) { c.classList.remove('active'); });
+  activeCategory = '';
+}
+
 function boot() {
   try {
     var mfgSelect = $('mfg-select');
@@ -1480,6 +1596,13 @@ function boot() {
       a.addEventListener('click', function () { closeMobile(); });
     });
 
+    // Product category drill-down
+    document.querySelectorAll('.product-card[data-cat]').forEach(function (c) {
+      c.addEventListener('click', function () { openCategory(c.getAttribute('data-cat')); });
+    });
+    var catBack = $('cat-back');
+    if (catBack) catBack.addEventListener('click', closeCategory);
+
     loadCart();
     updateCartUI();
     renderChips();
@@ -1509,6 +1632,7 @@ document.addEventListener('keydown', function (e) {
     if ($('submit-modal') && $('submit-modal').classList.contains('open')) closeSubmitModal();
     else if ($('cart-drawer') && $('cart-drawer').classList.contains('open')) closeCart();
     else if ($('mobile-drawer') && $('mobile-drawer').classList.contains('open')) closeMobile();
+    else if ($('cat-panel') && $('cat-panel').classList.contains('open')) closeCategory();
   }
 });
 
@@ -1517,4 +1641,3 @@ else boot();
 </script>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
