@@ -1637,7 +1637,7 @@ document.addEventListener('keydown', function (e) {
 });
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
-else boot();
+else boot(); document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;var id=a.getAttribute('href').slice(1);if(!id)return;var t=document.getElementById(id);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}});
 </script>
 </body>
 </html>
